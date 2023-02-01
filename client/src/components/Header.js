@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "./NavBar";
 import styled from 'styled-components';
 import profilePhoto from '../assets/profile-photo.jpg'
 
@@ -59,15 +58,15 @@ width: 8em;
 const PageTitle = styled.h1`
 color: white;
 margin-left: 1rem;
+margin-top: 2.5rem;
 
 `
 
-function Header( {currentUser, onLogout}) {
+function Header( {currentUser}) {
   return (
     <StyledHeader >
       <ProfileCard>
         <ProfileImage src={profilePhoto}>
-
         </ProfileImage>
         <Username>
           {!currentUser ? '' :
@@ -77,17 +76,10 @@ function Header( {currentUser, onLogout}) {
           </>}
         </Username>
       </ProfileCard>
-
-      <MenuDiv>
-        <button>
-          M e n u
-        </button>
+      <MenuDiv > 
+        <h2 style={{marginLeft: "20px", color: "white"}}>M e n u</h2>
       </MenuDiv>
       <PageTitle>Dashboard</PageTitle>
-
-      {/* <div >
-        <button onClick={onLogout} > Logout</button>
-      </div> */}
     </StyledHeader>
   );
 }

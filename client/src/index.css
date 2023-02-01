@@ -2,6 +2,14 @@
   --dark-blue: #2f3949;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+#page-wrap {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
 
 body {
   margin: 0;

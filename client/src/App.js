@@ -3,6 +3,8 @@ import { Switch, Route } from "react-router-dom";
 import Login from "./components/Login"
 import Header from "./components/Header"
 import Dashboard from "./components/Dashboard";
+import SideBar from "./components/SideBar";
+import MyCaseload from "./MyCaseload";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -32,11 +34,18 @@ function App() {
 
   return (
     <div >
-      <Header currentUser={currentUser} onLogout={handleLogout} />
+      <Header currentUser={currentUser}  />
+      <SideBar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} onLogout={handleLogout}  />
       <Switch>
         <Route exact path="/"> 
-          <Dashboard />
+          <Dashboard currentUser={currentUser} />
         </Route>
+        <Route>
+          <MyCaseload path="/caseload" />
+        </Route>
+        <Route path="*">
+            <h1>404 not found</h1>
+          </Route>
      </Switch>
     </div>
   );
