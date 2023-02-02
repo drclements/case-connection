@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
 
     def index 
-        render json: Clients.all
+        render json: Client.all
     end
 
     def show 
@@ -29,7 +29,7 @@ class ClientsController < ApplicationController
     private 
 
     def client_params
-        params.permit(:firstname, :lastname, :image, :age, :gender, :race, :ethnicity, :street_address, :city, :state, :zip, :county, :funding_id, :treatment_plan_id, :mentor_id, :case_manager_id)
+        params.permit(:firstname, :lastname, :image, :age, :gender, :race, :ethnicity, :street_address, :city, :state, :zip, :county, :funding_id, :treatment_plan_id, :mentor_id, :case_manager_id, :isActive)
     end
 
     def client_update_params

@@ -4,7 +4,8 @@ import Login from "./components/Login"
 import Header from "./components/Header"
 import Dashboard from "./components/Dashboard";
 import SideBar from "./components/SideBar";
-import MyCaseload from "./MyCaseload";
+import MyCaseload from "./components/MyCaseload";
+import NewClientForm from "./components/NewClientForm";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -40,8 +41,11 @@ function App() {
         <Route exact path="/"> 
           <Dashboard currentUser={currentUser} />
         </Route>
-        <Route>
-          <MyCaseload path="/caseload" />
+        <Route path="/caseload">
+          <MyCaseload />
+        </Route>
+        <Route path="/new-client">
+          <NewClientForm />
         </Route>
         <Route path="*">
             <h1>404 not found</h1>

@@ -28,6 +28,9 @@ function SideBar({onLogout}) {
             <a className="menu-item" href="/caseload">
                 My Caseload
             </a>
+            <a className="menu-item" href="/new-client">
+                Add New Mentee
+            </a>
             <a className="menu-item" href="/training">
                 Training
             </a>
