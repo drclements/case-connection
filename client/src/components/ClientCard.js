@@ -42,7 +42,7 @@ function ClientCard ({ client }) {
                 {county}
             </p>
             {isActive === true? (
-                  <p>
+                <p>
                 <strong>Status:</strong> Active
                 </p>  
                 ) : (

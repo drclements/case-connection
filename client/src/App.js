@@ -8,6 +8,7 @@ import MyCaseload from "./components/MyCaseload";
 import NewClientForm from "./components/NewClientForm";
 import ClientDetails from "./components/ClientDetails";
 import TreatmentPlanForm from "./components/TreatmentPlanForm";
+import TreatmentPlan from "./components/TreatmentPlan";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -56,9 +57,8 @@ function App() {
         <Route path="/create-treatment-plan"> 
           <TreatmentPlanForm />
         </Route>
-
         <Route path="/treatment-plan/:id"> 
-          <TreatmentPlanForm />
+          <TreatmentPlan />
         </Route>
         
         <Route path="/new-client">
