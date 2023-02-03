@@ -15,8 +15,9 @@ class ClientsController < ApplicationController
     end
 
     def update 
+       
         client = find_client
-        client.update!(client_update_params)
+        client.update!(client_params)
         render json: client, status: :accepted
     end
 
@@ -32,9 +33,6 @@ class ClientsController < ApplicationController
         params.permit(:firstname, :lastname, :image, :age, :gender, :race, :ethnicity, :street_address, :city, :state, :zip, :county, :funding_id, :treatment_plan_id, :mentor_id, :case_manager_id, :isActive)
     end
 
-    def client_update_params
-        params.permit(:firstname, :lastname, :image, :age, :gender, :race, :ethnicity, :street_address, :city, :state, :zip, :county, :funding_id, :treatment_plan_id, :mentor_id, :case_manager_id, :isActive)
-    end
 
     def find_client
         Client.find(params[:id])

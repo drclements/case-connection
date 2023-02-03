@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 
 function NewClientForm() {
-    const [image, setImage] = useState(null)
-    console.log(image)
+    const history = useHistory();
+  
     const [formData, setFormData] = useState({
         firstname: "",
         lastname: "",
@@ -22,9 +22,18 @@ function NewClientForm() {
     })
     console.log(formData)
     
-    function onImageChange(e) {
-        setImage(e.target.file)
-    }
+    // function onImageChange(e) {
+    //     if (e.target.files[0]) {
+    //         console.log("image: ", e.target.files);
+    //         setImage(e.target.files[0]);
+    //         const reader = new FileReader();
+    //         reader.addEventListener("load", () => {
+    //           setImgData(reader.result);
+    //         });
+    //         reader.readAsDataURL(e.target.files[0]);
+    //       }
+    //     };
+
 
     function onFormChange(e) {
         setFormData({
@@ -42,19 +51,20 @@ function NewClientForm() {
             body: JSON.stringify(formData)
         }).then((r) => r.json())
         .then(() => {
-            console.log(formData)
+            history.push('/caseload')
         })
         e.target.reset()
     }
+
     return (
         <div>
 
             <h2>Enroll New Mentee</h2>
-            <img src={image}></img>
+            {/* <img style={{height: "100px", width:"100px", objectFit: "cover", borderRadius: "50%"}} src={imgData}></img> */}
             <form onSubmit={handleSubmit}>
-                <label>Upload Photo</label>
-                <input name="image" type="file" accept="image/*" onChange={onImageChange} ></input>
-                <br/>
+                {/* <label>Upload Photo</label>
+                <input name="image" type="file" accept="image/*" onChange={onFormChange} ></input>
+                <br/> */}
                 <label>First Name:</label>
                 <input name="firstname" onChange={onFormChange}></input>
                 <br/>
@@ -74,7 +84,8 @@ function NewClientForm() {
                 <input name="zip" onChange={onFormChange}></input>
                 <br/>
                 <label>County:</label>
-                <select  name="county" onChange={onFormChange}>
+                <select  name="county"  onChange={onFormChange}>
+                <option value="Select One">Select One</option>
                     <option value="Nevada County">Nevada County</option>
                     <option value="Placer County">Placer County</option>
                     <option value="Sierra County">Sierra County</option>
@@ -98,7 +109,7 @@ function NewClientForm() {
                     <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
                     <option value="Asian">Asian</option>
                     <option value="Black or African American">Black or African American</option>
-                    <option value="Hispanic or Latino">Hispanic or Latino</option>
+                    <option value="Hispanic or Latino">Hispanic or Latinx</option>
                     <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
                     <option value="White">White</option>
                     <option value="Two or More Races">Two or More Races</option>

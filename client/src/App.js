@@ -6,9 +6,12 @@ import Dashboard from "./components/Dashboard";
 import SideBar from "./components/SideBar";
 import MyCaseload from "./components/MyCaseload";
 import NewClientForm from "./components/NewClientForm";
+import ClientDetails from "./components/ClientDetails";
+import TreatmentPlanForm from "./components/TreatmentPlanForm";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
+ 
 
   useEffect(() => {
     fetch('/me').then((r) => {
@@ -18,6 +21,8 @@ function App() {
     })
 
   }, [])
+
+
 
   function handleLogout() {
     fetch("/logout", {method: "DELETE"}).then((r) => {
@@ -33,6 +38,7 @@ function App() {
    </div>
   )
 
+
   return (
     <div >
       <Header currentUser={currentUser}  />
@@ -44,6 +50,17 @@ function App() {
         <Route path="/caseload">
           <MyCaseload />
         </Route>
+        <Route path="/clients/:id"> 
+          <ClientDetails />
+        </Route>
+        <Route path="/create-treatment-plan"> 
+          <TreatmentPlanForm />
+        </Route>
+
+        <Route path="/treatment-plan/:id"> 
+          <TreatmentPlanForm />
+        </Route>
+        
         <Route path="/new-client">
           <NewClientForm />
         </Route>
