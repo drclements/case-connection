@@ -11,6 +11,7 @@ class CaseManagersController < ApplicationController
 
     def create 
         cm = CaseManager.create!(cm_params)
+        session[:case_manager_id] = cm.id 
         render json: cm, status: :created
     end
 

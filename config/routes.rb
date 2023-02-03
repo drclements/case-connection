@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :treatment_plans
   resources :clients
   resources :mentors
   resources :case_managers
