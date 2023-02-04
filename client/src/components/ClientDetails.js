@@ -52,6 +52,10 @@ function ClientDetails() {
         history.push(`/treatment-plan/${id}`)
     }
 
+    function handleProgressNoteClick() {
+        history.push(`/progress-note/${id}`)
+    }
+
     return(
         <div >
             <Card className="flex" >
@@ -95,7 +99,7 @@ function ClientDetails() {
                     <p><strong>Zip Code:</strong> {zip}</p>
                 </section>
                 <button onClick={handleTreatmentPlanClick}>Treatment Plan</button>
-                <button>Progress Notes</button>
+                <button onClick={handleProgressNoteClick}>Progress Notes</button>
                 <button>Assessments</button>
             </Card>
         </div>

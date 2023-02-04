@@ -7,7 +7,7 @@ import SideBar from "./components/SideBar";
 import MyCaseload from "./components/MyCaseload";
 import NewClientForm from "./components/NewClientForm";
 import ClientDetails from "./components/ClientDetails";
-import TreatmentPlanForm from "./components/TreatmentPlanForm";
+import ProgressNotes from "./components/ProgressNotes"
 import TreatmentPlan from "./components/TreatmentPlan";
 
 function App() {
@@ -54,11 +54,11 @@ function App() {
         <Route path="/clients/:id"> 
           <ClientDetails />
         </Route>
-        <Route path="/create-treatment-plan"> 
-          <TreatmentPlanForm />
-        </Route>
         <Route path="/treatment-plan/:id"> 
           <TreatmentPlan />
+        </Route>
+        <Route path="/progress-note/:id"> 
+          <ProgressNotes />
         </Route>
         
         <Route path="/new-client">
