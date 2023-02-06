@@ -9,6 +9,7 @@ import NewClientForm from "./components/NewClientForm";
 import ClientDetails from "./components/ClientDetails";
 import ProgressNotes from "./components/ProgressNotes"
 import TreatmentPlan from "./components/TreatmentPlan";
+import Assessments from "./components/Assessments";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -59,6 +60,9 @@ function App() {
         </Route>
         <Route path="/progress-note/:id"> 
           <ProgressNotes />
+        </Route>
+        <Route path="/assessment/:id"> 
+          <Assessments />
         </Route>
         
         <Route path="/new-client">
