@@ -62,7 +62,7 @@ function TreatmentPlan(){
     const findClientTreatmentPlans = treatmentPlans.filter(treatmentPlan => (treatmentPlan.client_id === clientId))
 
     const displayTreatmentPlans = findClientTreatmentPlans.map(treatmentPlan => 
-       <TreatmentPlanCard treatmentPlan={treatmentPlan} />
+       <TreatmentPlanCard key={treatmentPlan.id} treatmentPlan={treatmentPlan} />
         )
     
 

@@ -66,7 +66,7 @@ function ProgressNotes(){
     const findClientProgressNotes = progressNotes.filter(progressNote => (progressNote.client_id === clientId))
 
     const displayProgressNotes = findClientProgressNotes.map(progressNote => 
-        <ProgressNoteCard progressNote={progressNote} />
+        <ProgressNoteCard key={progressNote.id} progressNote={progressNote} />
         )
 
     return(

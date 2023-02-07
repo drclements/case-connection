@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :fundings
   resources :perception_of_cares
   resources :progress_notes
   resources :treatment_plans

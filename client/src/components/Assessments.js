@@ -66,7 +66,7 @@ function Assessments(){
     const findClientPoc = pocs.filter(poc => (poc.client_id === clientId))
 
     const displayPocs = findClientPoc.map(poc => 
-        <PerceptionOfCareCard poc={poc} />
+        <PerceptionOfCareCard key={poc.id} poc={poc} />
         )
 
     return(
