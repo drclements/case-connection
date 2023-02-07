@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js'
-import { Pie } from "react-chartjs-2"
+import { Bar } from "react-chartjs-2"
 
 
 const PieChart = () => {
@@ -53,7 +53,7 @@ let options = {
 
     return (
         <div>
-            <Pie 
+            <Bar 
             data={data}
             height={400}
             options={options}

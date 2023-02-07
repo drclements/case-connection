@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import {useState, useEffect} from 'react'
 import PerceptionOfCareCard from "./PerceptionOfCareCard";
 import PerceptionOfCareForm from "./PerceptionOfCareForm";
+import SampleAssessmentForm from "./SampleAssessmentForm";
 
 const Card = styled.li`
 border: 1px solid;
@@ -34,6 +35,8 @@ function Assessments(){
     const [client, setClient] = useState([])
     const [pocs, setPocs] = useState([])
     const [pocMenu, setPocMenu] = useState(false)
+    const [sas, setSas] = useState([])
+    const [saMenu, setSaMenu] = useState(false)
     const {firstname, lastname, image, county, isActive, mentor_id, funding_id} = client
     const history = useHistory()
 
@@ -43,13 +46,15 @@ function Assessments(){
         Promise.all([
             fetch(`/clients/${id}`),
             fetch('/perception_of_cares'),
+            fetch('/sample_assessments'),
         ])
         .then(([resClient, resPoc]) =>
             Promise.all([resClient.json(), resPoc.json()])
         )
-        .then(([dataClient, dataPoc]) => {
+        .then(([dataClient, dataPoc, dataSa]) => {
             setClient(dataClient);
             setPocs(dataPoc)
+            setSas(dataSa)
         })
     }, [])
 
@@ -57,8 +62,16 @@ function Assessments(){
         setPocMenu(!pocMenu)
     }
 
+    function handleCreateSaClick(){
+        setSaMenu(!saMenu)
+    }
+
     function setUpdatePoc(newPoc) {
         setPocs([...pocs, newPoc])
+    }
+
+    function setUpdateSa(newSa) {
+        setPocs([...sas, newSa])
     }
 
     let clientId = parseInt(id)
@@ -68,6 +81,12 @@ function Assessments(){
     const displayPocs = findClientPoc.map(poc => 
         <PerceptionOfCareCard key={poc.id} poc={poc} />
         )
+
+    // const findClientSas = sas.filter(sa => (sa.client_id === clientId))
+
+    // const displaySas = findClientSa.map(sa => 
+    //     <PerceptionOfCareCard key={sa.id} sa={sa} />
+    //     )
 
     return(
         <Card className="flex">
@@ -105,6 +124,14 @@ function Assessments(){
                         <>
                         <button onClick={handleCreatePocClick} >Close Form</button>
                         <PerceptionOfCareForm onNewPoc={setUpdatePoc} onCloseForm={handleCreatePocClick} />
+                        </>
+                    )}
+                     {saMenu === false ? (
+                        <button onClick={handleCreateSaClick} >New Sample Assessment</button>
+                    ) : (
+                        <>
+                        <button onClick={handleCreateSaClick} >Close Form</button>
+                        <SampleAssessmentForm onNewSa={setUpdateSa} onCloseForm={handleCreateSaClick} />
                         </>
                     )}
                     {
