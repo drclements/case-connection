@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_02_101924) do
+ActiveRecord::Schema.define(version: 2023_02_07_040913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(version: 2023_02_02_101924) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "fundings", force: :cascade do |t|
+    t.string "name"
+    t.string "county"
+    t.string "funding_type"
+    t.string "year"
+    t.integer "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "mentors", force: :cascade do |t|
     t.string "firstname"
     t.string "lastname"
@@ -65,6 +75,54 @@ ActiveRecord::Schema.define(version: 2023_02_02_101924) do
     t.string "title"
     t.integer "credential_id"
     t.integer "case_manager_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "perception_of_cares", force: :cascade do |t|
+    t.string "poc_one"
+    t.string "poc_two"
+    t.string "poc_three"
+    t.string "poc_four"
+    t.string "poc_five"
+    t.string "poc_six"
+    t.string "poc_seven"
+    t.string "poc_eight"
+    t.string "poc_nine"
+    t.string "poc_ten"
+    t.string "poc_eleven"
+    t.string "poc_twelve"
+    t.text "poc_additional_comments"
+    t.string "length_of_service"
+    t.string "date"
+    t.string "firstname"
+    t.string "lastname"
+    t.integer "client_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "progress_notes", force: :cascade do |t|
+    t.string "firstname"
+    t.string "lastname"
+    t.string "date_of_service"
+    t.string "service_provided"
+    t.string "location"
+    t.integer "client_id"
+    t.string "chart_id"
+    t.integer "code_of_service"
+    t.string "date_of_note"
+    t.string "contact_type"
+    t.integer "service_time"
+    t.integer "travel_time"
+    t.integer "documentation_time"
+    t.integer "total_time"
+    t.text "treatment_goals"
+    t.text "session_focus"
+    t.text "interventions"
+    t.text "client_response"
+    t.text "plan"
+    t.string "staff_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -49,7 +49,15 @@ function ClientDetails() {
     }, [])
 
     function handleTreatmentPlanClick() {
-        history.push(`/create-treatment-plan`)
+        history.push(`/treatment-plan/${id}`)
+    }
+
+    function handleProgressNoteClick() {
+        history.push(`/progress-note/${id}`)
+    }
+
+    function handleAssessmentClick() {
+        history.push(`/assessment/${id}`)
     }
 
     return(
@@ -58,6 +66,8 @@ function ClientDetails() {
                 <Profile className="center">
                     <h2>{`${firstname} ${lastname}`}</h2>
                     <h3>County: {county}</h3>
+                    <label><strong>Mentee ID</strong></label>
+                    <p>{client.id}</p>
                     {mentor_id === null ? (
                         <button>Assign Mentor to Case</button>
                     ) : (
@@ -93,8 +103,8 @@ function ClientDetails() {
                     <p><strong>Zip Code:</strong> {zip}</p>
                 </section>
                 <button onClick={handleTreatmentPlanClick}>Treatment Plan</button>
-                <button>Progress Notes</button>
-                <button>Assessments</button>
+                <button onClick={handleProgressNoteClick}>Progress Notes</button>
+                <button onClick={handleAssessmentClick}>Assessments</button>
             </Card>
         </div>
     )

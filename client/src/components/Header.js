@@ -79,7 +79,7 @@ function Header( {currentUser}) {
       <MenuDiv > 
         <h2 style={{marginLeft: "20px", color: "white"}}>M e n u</h2>
       </MenuDiv>
-      <PageTitle>Dashboard</PageTitle>
+      <PageTitle>Case Connect</PageTitle>
     </StyledHeader>
   );
 }

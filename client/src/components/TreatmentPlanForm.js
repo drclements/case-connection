@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-function TreatmentPlanForm() {
+function TreatmentPlanForm({onCloseForm}) {
   const history = useHistory()
     const [formData, setFormData] = useState({
         firstname: "",
@@ -40,10 +40,54 @@ function TreatmentPlanForm() {
         e.target.reset()
     }
 
+    function onFormChange(e) {
+        setFormData({
+          ...formData,
+          [e.target.name]: e.target.value
+        });
+      }
+
     return (
         <div>
-            <form>
-                    
+            <h2>Treatment Plan Form</h2>
+            <form onSubmit={handleSubmit}>
+                <label>Date:</label>
+                <input name="date" type="date" onChange={onFormChange}></input>
+                <label>Client ID:</label>
+                <input name="client_id" min="0" type="number" onChange={onFormChange}></input>
+                <br/>
+                <label>First Name:</label>
+                <input name="firstname" onChange={onFormChange}></input>
+                <label>Last Name:</label>
+                <input name="lastname" onChange={onFormChange}></input>
+                <br/>
+                <label>Strengths:</label>
+                <br/>
+                <textarea type="text" name="strengths" onChange={onFormChange}></textarea>
+                <br/>
+                <label>Barriers:</label>
+                <br/>
+                <textarea type="text" name="barriers" onChange={onFormChange}></textarea>
+                <br/>
+                <label>Goals:</label>
+                <br/>
+                <textarea type="text" name="goals" onChange={onFormChange}></textarea>
+                <br/>
+                <label>Specific Objectives:</label>
+                <br/>
+                <textarea type="text" name="specific_objective" onChange={onFormChange}></textarea>
+                <br/>
+                <label>Interventions:</label>
+                <br/>
+                <textarea type="text" name="interventions" onChange={onFormChange}></textarea>
+                <br/>
+                <h3>Staff Completing Form</h3>
+                <label>Name & Credential:</label>
+                <input name="case_manager" onChange={onFormChange}></input>
+                <label>Today's Date:</label>
+                <input name="date_of_completion" type="date" onChange={onFormChange}></input>
+                <br/>
+                <button >Create Treatment Plan</button>
             </form>
         </div>
     )

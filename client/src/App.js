@@ -7,7 +7,11 @@ import SideBar from "./components/SideBar";
 import MyCaseload from "./components/MyCaseload";
 import NewClientForm from "./components/NewClientForm";
 import ClientDetails from "./components/ClientDetails";
-import TreatmentPlanForm from "./components/TreatmentPlanForm";
+import ProgressNotes from "./components/ProgressNotes"
+import TreatmentPlan from "./components/TreatmentPlan";
+import Assessments from "./components/Assessments";
+import FundingPage from "./components/FundingPage";
+import FundingForm from "./components/FundingForm";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -21,8 +25,6 @@ function App() {
     })
 
   }, [])
-
-
 
   function handleLogout() {
     fetch("/logout", {method: "DELETE"}).then((r) => {
@@ -50,15 +52,23 @@ function App() {
         <Route path="/caseload">
           <MyCaseload />
         </Route>
+        <Route path="/funding">
+          <FundingPage />
+        </Route>
+        <Route path="/new-funding">
+          <FundingForm />
+        </Route>
         <Route path="/clients/:id"> 
           <ClientDetails />
         </Route>
-        <Route path="/create-treatment-plan"> 
-          <TreatmentPlanForm />
-        </Route>
-
         <Route path="/treatment-plan/:id"> 
-          <TreatmentPlanForm />
+          <TreatmentPlan />
+        </Route>
+        <Route path="/progress-note/:id"> 
+          <ProgressNotes />
+        </Route>
+        <Route path="/assessment/:id"> 
+          <Assessments />
         </Route>
         
         <Route path="/new-client">
