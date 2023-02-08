@@ -12,23 +12,9 @@ function SampleAssessmentForm({onCloseForm, onNewSa}) {
     const [saThree, setSaThree] = useState("");
     const [saFour, setSaFour] = useState("");
     const [saFive, setSaFive] = useState("");
-    const [total, setTotal] = useState(0)
-
-    
-    console.log(date)
-    console.log(firstname)
-    console.log(lastname)
-    console.log(saOne)
-    console.log(saTwo)
-    console.log(saThree)
-    console.log(saFour)
-    console.log(saFive)
 
     let newTotal = parseInt(saOne) + parseInt(saTwo) + parseInt(saThree) + parseInt(saFour) + parseInt(saFive)
-
     
-    
-
     function handleSubmit(e) {
         e.preventDefault();
         const formData = {
