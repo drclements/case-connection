@@ -12,9 +12,11 @@ import TreatmentPlan from "./components/TreatmentPlan";
 import Assessments from "./components/Assessments";
 import FundingPage from "./components/FundingPage";
 import FundingForm from "./components/FundingForm";
+import ProgramAnnouncementForm from "./components/ProgramAnnouncementForm";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
+  
  
 
   useEffect(() => {
@@ -70,7 +72,9 @@ function App() {
         <Route path="/assessment/:id"> 
           <Assessments />
         </Route>
-        
+        <Route path="/create-announcement">
+          <ProgramAnnouncementForm />
+        </Route>
         <Route path="/new-client">
           <NewClientForm />
         </Route>

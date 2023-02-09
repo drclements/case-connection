@@ -100,8 +100,6 @@ function Assessments(){
         <SampleAssessmentCard key={sa.id} sa={sa} />
         )
 
-        console.log(displaySas)
-
     return(
         <Card className="flex">
             <Profile className="center">

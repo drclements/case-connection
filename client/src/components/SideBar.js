@@ -29,10 +29,13 @@ function SideBar({onLogout}) {
                 My Caseload
             </a>
             <a className="menu-item" href="/new-client">
-                Add New Mentee
+                New Mentee Intake
             </a>
             <a className="menu-item" href="/funding">
                 Funding 
+            </a>
+            <a className="menu-item" href="/create-announcement">
+                Program Announcement
             </a>
             <a className="menu-item" href="/training">
                 Training

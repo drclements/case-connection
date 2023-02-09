@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :images
+  resources :program_announcements
   resources :sample_assessments
   resources :fundings
   resources :perception_of_cares
