@@ -13,11 +13,12 @@ import Assessments from "./components/Assessments";
 import FundingPage from "./components/FundingPage";
 import FundingForm from "./components/FundingForm";
 import ProgramAnnouncementForm from "./components/ProgramAnnouncementForm";
+import Profile from "./components/Profile";
+import ProfileUpdateForm from "./components/ProfileUpdateForm";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
   
- 
 
   useEffect(() => {
     fetch('/me').then((r) => {
@@ -50,6 +51,12 @@ function App() {
       <Switch>
         <Route exact path="/"> 
           <Dashboard currentUser={currentUser} />
+        </Route>
+        <Route path='/profile'>
+          <Profile currentUser={currentUser} />
+        </Route>
+        <Route path='/update-profile'>
+          <ProfileUpdateForm setCurrentUser={setCurrentUser} currentUser={currentUser} />
         </Route>
         <Route path="/caseload">
           <MyCaseload />

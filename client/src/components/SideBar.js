@@ -43,8 +43,8 @@ function SideBar({onLogout}) {
             <a className="menu-item" href="/resources">
                 Resources
             </a>
-            <a className="menu-item" href="/timecard">
-                Timecard
+            <a className="menu-item" href="/profile">
+                Profile
             </a>
             <Logout onClick={onLogout} className="menu-item" >Logout </Logout>
         </Menu>
