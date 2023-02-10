@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { useHistory } from 'react-router-dom';
+import defaultProfilePhoto from '../assets/default-profile.png'
 
 
 const Card = styled.li`
@@ -35,7 +36,7 @@ function ClientCard ({ client }) {
 
     return (
         <Card className="center">
-            <Image src={image} alt={`${firstname} ${lastname} Photo`}></Image>
+            <Image src={defaultProfilePhoto} alt={`${firstname} ${lastname} Photo`}></Image>
             <h3>{`${firstname} ${lastname}`}</h3>
             <p>
                 <strong>County: </strong>

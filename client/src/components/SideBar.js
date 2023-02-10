@@ -37,12 +37,12 @@ function SideBar({onLogout}) {
             <a className="menu-item" href="/create-announcement">
                 Program Announcement
             </a>
-            <a className="menu-item" href="/training">
+            {/* <a className="menu-item" href="/training">
                 Training
             </a>
             <a className="menu-item" href="/resources">
                 Resources
-            </a>
+            </a> */}
             <a className="menu-item" href="/profile">
                 Profile
             </a>

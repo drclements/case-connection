@@ -3,9 +3,14 @@ import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
 import { Button } from "../styled-components/Buttons";
+import LoginPhoto from "../assets/IMG_1800.jpeg"
 
 
-
+const Image = styled.img`
+object-fit: cover;
+width: 500px;
+height: 550px
+`
 
 const Wrapper = styled.section`
   max-width: 500px;
@@ -23,10 +28,16 @@ function Login({ onLogin }) {
     const [showLogin, setShowLogin] = useState(true);
     
     return (
-    <div>
+    <div className="flex" style={{marginTop: "1rem", marginRight:"1rem"}}>
      
         <Wrapper>
-            {showLogin ? (
+            <h1>Case</h1>
+            <h1>Connect</h1>
+            <p>Custom Case Management Solutions</p>
+            <Divider/>
+            <LoginForm onLogin={onLogin} />
+                {/* <Divider /> */}
+            {/* {showLogin ? (
             <>
                 <LoginForm onLogin={onLogin} />
                 <Divider />
@@ -48,8 +59,9 @@ function Login({ onLogin }) {
                 </Button>
                 </p>
             </>
-            )}
+            )} */}
         </Wrapper>
+        <Image src={LoginPhoto}></Image>
     </div>
     );
   }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useHistory } from 'react-router-dom';
+import defaultProfilePhoto from '../assets/default-profile.png'
 import styled from "styled-components";
 import axios from 'axios';
 
@@ -64,6 +65,7 @@ function ClientDetails() {
         <div >
             <Card className="flex" >
                 <Profile className="center">
+                    <ProfileImg src={defaultProfilePhoto}/>
                     <h2>{`${firstname} ${lastname}`}</h2>
                     <h3>County: {county}</h3>
                     <label><strong>Mentee ID</strong></label>

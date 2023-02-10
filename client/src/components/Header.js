@@ -1,6 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
-import profilePhoto from '../assets/profile-photo.jpg'
+import defaultProfilePhoto from '../assets/default-profile.png'
+import {useEffect, useState} from 'react'
 
 const StyledHeader = styled.header`
   background-color: var(--dark-blue);
@@ -26,7 +27,7 @@ background-size: cover;
 object-fit: cover;
 position: absolute;
   top: .75rem;
-  right: 11rem;
+  right: 14rem;
   z-index: 1;
 `
 
@@ -37,16 +38,10 @@ const Username = styled.div`
   border-radius: 10px;
   position: absolute;
   top: 1.25rem;
-  right: 10rem;
+  right: 4rem;
   z-index: 1;
 
-  @media (max-width: 1150px) {
-    right: 2rem;
-  }
-
-  @media (max-width: 750px) {
-    left: -100vw;
-  }
+ 
 `;
 
 const MenuDiv = styled.div`
@@ -63,11 +58,19 @@ margin-top: 2.5rem;
 `
 
 function Header( {currentUser}) {
+const [image, setImage] = useState([])
+
+console.log(image)
+  useEffect(() => {
+    fetch('/images')
+    .then(res => res.json())
+    .then(data => setImage(data))
+}, [])
+
   return (
     <StyledHeader >
       <ProfileCard>
-        <ProfileImage src={profilePhoto}>
-        </ProfileImage>
+      <ProfileImage src={defaultProfilePhoto}></ProfileImage>
         <Username>
           {!currentUser ? '' :
           <>

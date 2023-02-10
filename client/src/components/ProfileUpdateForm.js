@@ -1,30 +1,17 @@
 import React, { useState, } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useForm } from "react-hook-form";
 
 const ProfileUpdateForm = ({currentUser, setCurrentUser}) => {
 
     const history = useHistory()
     const {id, phone, street_address, state, zip, title, city} = currentUser
-    
-    const preloadedValues = {
-        phone: phone, 
-        street_address: street_address,
-        state: state, 
-        zip: zip, 
-        city: city
-    }
-    
-    const {register, handleSubmit} = useForm({
-        defaultValues: preloadedValues
-    })
 
     const [formData, setFormData] = useState({
-        street_address: "",
-        city: "",
-        state: "",
-        zip: "",
-        phone: "",
+        street_address,
+        city,
+        state,
+        zip,
+        phone,
     })
 
     function onFormChange(e) {
@@ -50,22 +37,22 @@ const ProfileUpdateForm = ({currentUser, setCurrentUser}) => {
 
     return (
     <div>
-        <form onSubmit={handleSubmit(handleProfileUpdate)}>
+        <form onSubmit={handleProfileUpdate}>
                 <label><strong>Update Profile Information</strong></label>
                 <br/>
                 <label>Phone Number: </label>
-                <input required ref={register}  name="phone" onChange={onFormChange} />
+                <input required defaultValue={phone}  name="phone" onChange={onFormChange} />
                 <br/>
                 <label>Street: </label>
-                <input required ref={register} name="street_address" onChange={onFormChange} />
+                <input required defaultValue={street_address} name="street_address" onChange={onFormChange} />
                 <br/>
                 <label>City: </label>
-                <input required ref={register} name="city" onChange={onFormChange} />
+                <input required defaultValue={city} name="city" onChange={onFormChange} />
                 <br/>
                 <label>State: </label>
-                <input required ref={register} name="state" onChange={onFormChange} />
+                <input required defaultValue={state} name="state" onChange={onFormChange} />
                 <label>Zip Code: </label>
-                <input required ref={register} name="zip" onChange={onFormChange} />
+                <input required defaultValue={zip} name="zip" onChange={onFormChange} />
                 <button type="submit">Update</button>
             </form>
     </div>
