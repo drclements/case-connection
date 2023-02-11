@@ -2,6 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import defaultProfilePhoto from '../assets/default-profile.png'
 import {useEffect, useState} from 'react'
+import ProfileImage from "../ProfileImage";
 
 const StyledHeader = styled.header`
   background-color: var(--dark-blue);
@@ -14,21 +15,6 @@ const StyledHeader = styled.header`
 const ProfileCard = styled.div`
 display: flex;
 background-color: white;
-`
-
-const ProfileImage = styled.img`
-width: 100px;
-height: 100px;
-border-radius: 50%;
-
-background-repeat: no-repeat;
-background-position: center center;
-background-size: cover;
-object-fit: cover;
-position: absolute;
-  top: .75rem;
-  right: 14rem;
-  z-index: 1;
 `
 
 const Username = styled.div`
@@ -57,20 +43,19 @@ margin-top: 2.5rem;
 
 `
 
-function Header( {currentUser}) {
-const [image, setImage] = useState([])
+function Header( {currentUser, users}) {
 
-console.log(image)
-  useEffect(() => {
-    fetch('/images')
-    .then(res => res.json())
-    .then(data => setImage(data))
-}, [])
+
+  const findUser = users?.filter((user) => user.id === currentUser.id)
+
+    const profileImageToDisplay = findUser.map(user => 
+        <ProfileImage user={user} />
+    )
 
   return (
     <StyledHeader >
       <ProfileCard>
-      <ProfileImage src={defaultProfilePhoto}></ProfileImage>
+        {profileImageToDisplay}
         <Username>
           {!currentUser ? '' :
           <>

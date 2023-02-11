@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
     
     def show 
         user = CaseManager.find(session[:case_manager_id])
-        render json: user, status: :ok
+        render json: user, status: :ok , serializer: CaseManagerImageSerializer
     end
 
     def create 

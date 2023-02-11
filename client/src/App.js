@@ -18,16 +18,37 @@ import ProfileUpdateForm from "./components/ProfileUpdateForm";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
+  const [users, setUsers] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   
 
   useEffect(() => {
+    setIsLoading(true)
     fetch('/me').then((r) => {
       if (r.ok) {
-        r.json().then((data) => setCurrentUser(data))
+        r.json().then((data) => {
+          setCurrentUser(data)
+        })
+        
+        .then(() => setIsLoading(false))
       }
     })
-
   }, [])
+
+ 
+    useEffect(() => {
+      fetch('/case_managers')
+      .then(res => res.json())
+      .then(data => {
+          setUsers(data)
+
+      })
+  }, [])
+
+
+  function handleUserUpdate (updatedInfo) {
+    setCurrentUser(updatedInfo)
+  }
 
   function handleLogout() {
     fetch("/logout", {method: "DELETE"}).then((r) => {
@@ -46,17 +67,17 @@ function App() {
 
   return (
     <div >
-      <Header currentUser={currentUser}  />
+      <Header isLoading={isLoading} users={users}  currentUser={currentUser}  />
       <SideBar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} onLogout={handleLogout}  />
       <Switch>
         <Route exact path="/"> 
           <Dashboard currentUser={currentUser} />
         </Route>
         <Route path='/profile'>
-          <Profile currentUser={currentUser} />
+          <Profile users={users}  currentUser={currentUser} />
         </Route>
         <Route path='/update-profile'>
-          <ProfileUpdateForm setCurrentUser={setCurrentUser} currentUser={currentUser} />
+          <ProfileUpdateForm setCurrentUser={handleUserUpdate} currentUser={currentUser} />
         </Route>
         <Route path="/caseload">
           <MyCaseload />

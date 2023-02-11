@@ -6,12 +6,14 @@ const ProfileUpdateForm = ({currentUser, setCurrentUser}) => {
     const history = useHistory()
     const {id, phone, street_address, state, zip, title, city} = currentUser
 
+
     const [formData, setFormData] = useState({
         street_address,
         city,
         state,
         zip,
         phone,
+    
     })
 
     function onFormChange(e) {

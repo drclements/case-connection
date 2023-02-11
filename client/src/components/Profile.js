@@ -1,26 +1,32 @@
 import React, {useEffect, useState} from 'react'
 import { useHistory } from 'react-router-dom'
-import defaultProfilePhoto from '../assets/default-profile.png'
+import ProfileDetails from './ProfileDetails'
 
 
 
-const Profile = ({currentUser}) => {
+const Profile = ({currentUser, users}) => {
     const history = useHistory()
     const [addPictureMenu, setAddPictureMenu] = useState(false)
     const [imageData, setImageData] = useState(null)
-    const [image, setImage] = useState([])
-    const [users, setUsers] = useState([])
-    const {id, firstname, lastname, email, phone, street_address, state, zip, title, city, credential_id } = currentUser
+    // const [users, setUsers] = useState([])
+    
 
-    useEffect(() => {
-        fetch('/case_managers')
-        .then(res => res.json())
-        .then(data => setUsers(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch('/case_managers')
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         setUsers(data)
+    //     })
+    // }, [])
 
+    const findUser = users?.filter((user) => user.id === currentUser.id)
+
+    // const profileDetailsToDisplay = findUser.map(user => 
+    //     <ProfileDetails user={user}/>
+    // )
 
     function updateClick() {
-        history.push(`/update-profile`)
+       history.push('/update-profile')
     }
 
     function handleAddPictureClick() {
@@ -42,22 +48,7 @@ const Profile = ({currentUser}) => {
 
   return (
     <div>
-        <h2>My Profile</h2>
-        <p>{firstname} {lastname}</p>
-        <p>{title? title : null }</p>
-        <p>{email}</p>
-        <p>{phone? phone : "Please add phone number"}</p>
-        {street_address? ( 
-            <>
-            <h3>Primary Address</h3>
-                <p>{street_address}</p>
-                <p>{city}</p>
-                <p>{state}, {zip}</p>  
-            </>
-            ) : (
-            "Please add primary address"
-        )}
-        <br/>
+        <ProfileDetails currentUser={currentUser}/>
         <button onClick={updateClick}>Update Profile</button>
         {addPictureMenu === false ? (
             <button onClick={handleAddPictureClick}>Add Photo</button>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_09_200052) do
+ActiveRecord::Schema.define(version: 2023_02_10_031238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2023_02_09_200052) do
     t.string "firstname"
     t.string "lastname"
     t.string "email"
-    t.integer "phone"
+    t.string "phone"
     t.string "street_address"
     t.string "city"
     t.string "state"
@@ -94,6 +94,8 @@ ActiveRecord::Schema.define(version: 2023_02_09_200052) do
   create_table "images", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "image_data"
+    t.integer "case_manager_id"
   end
 
   create_table "mentors", force: :cascade do |t|
