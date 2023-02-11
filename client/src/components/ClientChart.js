@@ -41,7 +41,7 @@ object-fit: cover
 function ClientChart() {
     const { id } = useParams();
     const [client, setClient] = useState([])
-    const {firstname, lastname, image, county, isActive, case_manager_id, funding_id, age, gender, race, ethnicity, street_address, city, state, zip} = client
+    const {firstname, lastname, image, county, isActive, case_manager_id, funding_id, age, gender, race, ethnicity, street_address, city, state, zip, case_manager} = client
     const history = useHistory()
 
     console.log(client)
@@ -77,11 +77,8 @@ function ClientChart() {
                     <h3>{county}</h3>
                     <label><strong>Mentee ID</strong></label>
                     <p>{client.id}</p>
-                    {case_manager_id === null ? (
-                        <p style={{color: "red"}}>Needs Case Worker</p>
-                    ) : (
-                    <p>{`Case Manager: ${case_manager_id}`}</p>
-                    )}
+                    <label><strong>Case Worker</strong></label>
+                        {case_manager === undefined ? <p>{case_manager_id}</p> : <p>{case_manager.firstname} {case_manager.lastname}</p>}
                     {funding_id === null ? (
                         <p style={{color: "red"}}>Add Funding</p>
                     ) : (

@@ -49,7 +49,7 @@ function Header( {currentUser, users}) {
   const findUser = users?.filter((user) => user.id === currentUser.id)
 
     const profileImageToDisplay = findUser.map(user => 
-        <ProfileImage user={user} />
+        <ProfileImage key={user.id} user={user} />
     )
 
   return (
