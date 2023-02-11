@@ -3,6 +3,7 @@ import ClientCard from "./ClientCard"
 import styled from "styled-components"
 
 
+
 const CardDiv = styled.div`
 justify-content: space-evenly;
 `

@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import defaultProfilePhoto from '../assets/default-profile.png'
 import styled from "styled-components";
 import axios from 'axios';
+import ClientPhoto from "./ClientPhoto";
 
 const Card = styled.li`
   border: 1px solid;
@@ -40,8 +41,10 @@ object-fit: cover
 function ClientChart() {
     const { id } = useParams();
     const [client, setClient] = useState([])
-    const {firstname, lastname, image, county, isActive, mentor_id, funding_id, age, gender, race, ethnicity, street_address, city, state, zip} = client
+    const {firstname, lastname, image, county, isActive, case_manager_id, funding_id, age, gender, race, ethnicity, street_address, city, state, zip} = client
     const history = useHistory()
+
+    console.log(client)
   
     useEffect(() => {
         fetch(`/clients/${id}`)
@@ -69,15 +72,15 @@ function ClientChart() {
         <div >
             <Card className="flex" >
                 <Profile className="center">
-                    <ProfileImg src={defaultProfilePhoto}/>
+                    <ClientPhoto />
                     <h2>{`${firstname} ${lastname}`}</h2>
                     <h3>{county}</h3>
                     <label><strong>Mentee ID</strong></label>
                     <p>{client.id}</p>
-                    {mentor_id === null ? (
+                    {case_manager_id === null ? (
                         <p style={{color: "red"}}>Needs Case Worker</p>
                     ) : (
-                    <p>{`Funding: ${mentor_id}`}</p>
+                    <p>{`Case Manager: ${case_manager_id}`}</p>
                     )}
                     {funding_id === null ? (
                         <p style={{color: "red"}}>Add Funding</p>

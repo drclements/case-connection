@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import defaultProfilePhoto from '../assets/default-profile.png'
+import ClientPhoto from './ClientPhoto'
+import ClientUpdateForm from './ClientUpdateForm'
 
 const ProfileImg = styled.img`
 height: 15rem; 
@@ -11,27 +13,21 @@ object-fit: cover
 `
 
 
-const ClientDetails = () => {
+const ClientDetails = ({clients}) => {
     const history = useHistory()
     const { id } = useParams();
     const [addPictureMenu, setAddPictureMenu] = useState(false)
     const [updatePictureMenu, setUpdatePictureMenu] = useState(false)
     const [imageData, setImageData] = useState(null)
     const [client, setClient] = useState([])
-    const [clients, setClients] = useState([])
+ 
 
-    const {firstname, lastname, county, isActive, mentor_id, funding_id, age, gender, race, ethnicity, street_address, city, state, zip, client_images} = client
+    const {firstname, lastname, county, isActive, mentor_id, funding_id, age, gender, race, ethnicity, street_address, city, state, zip} = client
 
     useEffect(() => {
         fetch(`/clients/${id}`)
         .then(res => res.json())
         .then(clientData => setClient(clientData))
-    }, [])
-
-    useEffect(() => {
-        fetch(`/clients`)
-        .then(res => res.json())
-        .then(clientData => setClients(clientData))
     }, [])
 
 
@@ -84,7 +80,7 @@ const ClientDetails = () => {
   return (
     <div>
         <h2>Mentee Demographic</h2>
-            <ProfileImg src={imgArr.length === 0 ? defaultProfilePhoto : imgArr} />
+            <ClientPhoto />
             <p><strong>Full Legal Name:</strong>{` ${firstname} ${lastname}`}</p>
             {isActive === true ? (
                <p><strong>Client Active</strong></p>
@@ -102,6 +98,7 @@ const ClientDetails = () => {
             <p><strong>Zip Code:</strong> {zip}</p>
             <p><strong>County:</strong> {county}</p>
         <button onClick={updateClick}>Update Client Information</button>
+        <ClientUpdateForm client={client} setClient={setClient} />
         {imgArr.length === 0 ? (
         addPictureMenu === false ? (
             <button onClick={handleAddPictureClick}>Add Photo</button>

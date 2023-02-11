@@ -19,11 +19,9 @@ position: absolute;
 
 const ProfileImage = ({user}) => {
     const {images} = user
-    
     const displayImg = images.map(image => image.image_data)
-    console.log(displayImg)
     const [profileImage, setProfileImage] = useState(displayImg)
-    console.log(profileImage)
+  
 
   return (
     <ProfileImg src={displayImg.length === 0 ? defaultProfilePhoto : displayImg} >

@@ -19,24 +19,29 @@ const Card = styled.li`
 `;
 
 const Image = styled.img`
-  width: 200x;
   height: 200px;
+  width: 200px;
   object-fit: cover;
+  
   border-radius: 50%;
   
 `;
 
 function ClientCard ({ client }) {
-    const {id, firstname, lastname, image, county, isActive} = client
+    const {id, firstname, lastname, client_images, county, isActive} = client
     const history = useHistory()
 
     function handleOpenFile() {
         history.push(`/clients/${id}`)
     }
 
+    const displayImg = client_images.map(image => image.image_data)
+
+    
+
     return (
         <Card className="center">
-            <Image src={defaultProfilePhoto} alt={`${firstname} ${lastname} Photo`}></Image>
+            <Image src={displayImg.length === 0 ? defaultProfilePhoto : displayImg} alt={`${firstname} ${lastname} Photo`}></Image>
             <h3>{`${firstname} ${lastname}`}</h3>
             <p>
                 <strong>County: </strong>

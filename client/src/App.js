@@ -16,11 +16,13 @@ import ProgramAnnouncementForm from "./components/ProgramAnnouncementForm";
 import Profile from "./components/Profile";
 import ProfileUpdateForm from "./components/ProfileUpdateForm";
 import ClientDetails from "./components/ClientDetails";
+import ClientUpdateForm from "./components/ClientUpdateForm";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
   const [users, setUsers] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [clients, setClients] = useState([]) 
   
 
   useEffect(() => {
@@ -36,13 +38,18 @@ function App() {
     })
   }, [])
 
+  useEffect(() => {
+    fetch('/clients')
+    .then(res => res.json())
+    .then(data => setClients(data))
+  }, [])
+
  
     useEffect(() => {
       fetch('/case_managers')
       .then(res => res.json())
       .then(data => {
           setUsers(data)
-
       })
   }, [])
 
@@ -94,7 +101,7 @@ function App() {
           <ClientChart />
         </Route>
         <Route path="/client-details/:id"> 
-          <ClientDetails />
+          <ClientDetails clients={clients} />
         </Route>
         <Route path="/treatment-plan/:id"> 
           <TreatmentPlan />
