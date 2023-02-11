@@ -35,8 +35,7 @@ function TreatmentPlan(){
     const [treatmentPlans, setTreatmentPlans] = useState([])
     const [treatmentPlanMenu, setTreatmentPlanMenu] = useState(false)
     const {firstname, lastname, image, county, isActive, mentor_id, funding_id} = client
-    const history = useHistory()
-
+   
     
   
     useEffect(() => {

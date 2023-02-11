@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
 import defaultProfilePhoto from '../assets/default-profile.png'
 
@@ -19,11 +19,11 @@ position: absolute;
 
 const ProfileImage = ({user}) => {
     const {images} = user
-    console.log(images)
-
+    
     const displayImg = images.map(image => image.image_data)
     console.log(displayImg)
-
+    const [profileImage, setProfileImage] = useState(displayImg)
+    console.log(profileImage)
 
   return (
     <ProfileImg src={displayImg.length === 0 ? defaultProfilePhoto : displayImg} >

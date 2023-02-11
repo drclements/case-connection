@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :client_images
   resources :images
   resources :program_announcements
   resources :sample_assessments

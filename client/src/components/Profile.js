@@ -4,7 +4,7 @@ import ProfileDetails from './ProfileDetails'
 
 
 
-const Profile = ({currentUser, users, imageDataList}) => {
+const Profile = ({currentUser, users}) => {
     const history = useHistory()
     const [addPictureMenu, setAddPictureMenu] = useState(false)
     const [updatePictureMenu, setUpdatePictureMenu] = useState(false)
@@ -25,7 +25,6 @@ const Profile = ({currentUser, users, imageDataList}) => {
     }
 
     function handlePictureSubmit(e) {
-        e.preventDefault()
 
         const formData = new FormData()
         formData.append('case_manager_id', currentUser.id)
@@ -38,7 +37,6 @@ const Profile = ({currentUser, users, imageDataList}) => {
     }
 
     function handleUpdatePictureSubmit(e) {
-        e.preventDefault()
 
         const formData = new FormData()
         formData.append('case_manager_id', currentUser.id)
@@ -60,8 +58,6 @@ const Profile = ({currentUser, users, imageDataList}) => {
         user.images[0].id
     ) : ""
     
-    
-
   return (
     <div>
         <ProfileDetails currentUser={currentUser}/>

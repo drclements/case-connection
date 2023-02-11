@@ -44,7 +44,7 @@ margin-top: 2.5rem;
 `
 
 function Header( {currentUser, users}) {
-
+  
 
   const findUser = users?.filter((user) => user.id === currentUser.id)
 

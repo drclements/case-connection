@@ -6,7 +6,7 @@ import Dashboard from "./components/Dashboard";
 import SideBar from "./components/SideBar";
 import MyCaseload from "./components/MyCaseload";
 import NewClientForm from "./components/NewClientForm";
-import ClientDetails from "./components/ClientDetails";
+import ClientChart from "./components/ClientChart";
 import ProgressNotes from "./components/ProgressNotes"
 import TreatmentPlan from "./components/TreatmentPlan";
 import Assessments from "./components/Assessments";
@@ -15,11 +15,11 @@ import FundingForm from "./components/FundingForm";
 import ProgramAnnouncementForm from "./components/ProgramAnnouncementForm";
 import Profile from "./components/Profile";
 import ProfileUpdateForm from "./components/ProfileUpdateForm";
+import ClientDetails from "./components/ClientDetails";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
   const [users, setUsers] = useState([])
-  const [imageData, setImageData] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   
 
@@ -46,14 +46,6 @@ function App() {
       })
   }, [])
 
-  useEffect(() => {
-    fetch('/images')
-    .then(res => res.json())
-    .then(data => {
-        setImageData(data)
-
-    })
-}, [])
 
 
   function handleUserUpdate (updatedInfo) {
@@ -84,7 +76,7 @@ function App() {
           <Dashboard currentUser={currentUser} />
         </Route>
         <Route path='/profile'>
-          <Profile imageDataList={imageData} users={users}  currentUser={currentUser} />
+          <Profile users={users}  currentUser={currentUser} />
         </Route>
         <Route path='/update-profile'>
           <ProfileUpdateForm setCurrentUser={handleUserUpdate} currentUser={currentUser} />
@@ -99,6 +91,9 @@ function App() {
           <FundingForm />
         </Route>
         <Route path="/clients/:id"> 
+          <ClientChart />
+        </Route>
+        <Route path="/client-details/:id"> 
           <ClientDetails />
         </Route>
         <Route path="/treatment-plan/:id"> 

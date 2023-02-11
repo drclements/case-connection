@@ -9,7 +9,6 @@ justify-content: space-evenly;
 
 function MyCaseload() {
     const [clientList, setClientList] = useState([])
-    console.log(clientList)
     useEffect(() => {
         fetch('/clients')
         .then(res => res.json())
