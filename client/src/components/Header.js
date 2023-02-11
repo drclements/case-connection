@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import defaultProfilePhoto from '../assets/default-profile.png'
 import {useEffect, useState} from 'react'
-import ProfileImage from "../ProfileImage";
+import ProfileImage from "./ProfileImage";
 
 const StyledHeader = styled.header`
   background-color: var(--dark-blue);

@@ -19,6 +19,7 @@ import ProfileUpdateForm from "./components/ProfileUpdateForm";
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
   const [users, setUsers] = useState([])
+  const [imageData, setImageData] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   
 
@@ -44,6 +45,15 @@ function App() {
 
       })
   }, [])
+
+  useEffect(() => {
+    fetch('/images')
+    .then(res => res.json())
+    .then(data => {
+        setImageData(data)
+
+    })
+}, [])
 
 
   function handleUserUpdate (updatedInfo) {
@@ -74,7 +84,7 @@ function App() {
           <Dashboard currentUser={currentUser} />
         </Route>
         <Route path='/profile'>
-          <Profile users={users}  currentUser={currentUser} />
+          <Profile imageDataList={imageData} users={users}  currentUser={currentUser} />
         </Route>
         <Route path='/update-profile'>
           <ProfileUpdateForm setCurrentUser={handleUserUpdate} currentUser={currentUser} />

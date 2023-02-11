@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import defaultProfilePhoto from './assets/default-profile.png'
+import defaultProfilePhoto from '../assets/default-profile.png'
 
 const ProfileImg = styled.img`
 width: 100px;
