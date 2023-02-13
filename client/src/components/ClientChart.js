@@ -78,7 +78,7 @@ function ClientChart() {
                     <label><strong>Mentee ID</strong></label>
                     <p>{client.id}</p>
                     <label><strong>Case Worker</strong></label>
-                        {case_manager === undefined ? <p>{case_manager_id}</p> : <p>{case_manager.firstname} {case_manager.lastname}</p>}
+                        {case_manager === null || case_manager === undefined ? <p>{case_manager_id}</p> : <p>{case_manager.firstname} {case_manager.lastname}</p>}
                     {funding_id === null ? (
                         <p style={{color: "red"}}>Add Funding</p>
                     ) : (
