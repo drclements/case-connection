@@ -1,12 +1,13 @@
 class CaseManagersController < ApplicationController
 
     def index 
-        render json: CaseManager.all
+        cms = CaseManager.all
+        render json: cms, each_serializer: CaseManagerImageSerializer
     end
 
     def show 
         case_manager = find_user
-        render json: case_manager
+        render json: case_manager, serializer: CaseManagerImageSerializer
     end
 
     def create 
@@ -19,6 +20,12 @@ class CaseManagersController < ApplicationController
         cm = find_user 
         cm.destroy 
         head :no_content
+    end
+
+    def update 
+        cm = find_user
+        cm.update!(cm_params)
+        render json: cm, status: :accepted
     end
 
     private 

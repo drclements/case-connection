@@ -3,6 +3,9 @@ import { useParams, useHistory } from "react-router-dom";
 import {useState, useEffect} from 'react'
 import PerceptionOfCareCard from "./PerceptionOfCareCard";
 import PerceptionOfCareForm from "./PerceptionOfCareForm";
+import SampleAssessmentForm from "./SampleAssessmentForm";
+import SampleAssessmentCard from "./SampleAssessmentCard";
+import SaLineChart from "../components/charts/SaLineChart"
 
 const Card = styled.li`
 border: 1px solid;
@@ -33,7 +36,11 @@ function Assessments(){
     const { id } = useParams();
     const [client, setClient] = useState([])
     const [pocs, setPocs] = useState([])
-    const [pocMenu, setPocMenu] = useState(false)
+    const [viewPocs, setViewPocs] = useState(false)
+    const [viewSas, setViewSas] = useState(false)
+    const [addPocMenu, setAddPocMenu] = useState(false)
+    const [sas, setSas] = useState([])
+    const [addSaMenu, setAddSaMenu] = useState(false)
     const {firstname, lastname, image, county, isActive, mentor_id, funding_id} = client
     const history = useHistory()
 
@@ -43,22 +50,40 @@ function Assessments(){
         Promise.all([
             fetch(`/clients/${id}`),
             fetch('/perception_of_cares'),
+            fetch('/sample_assessments'),
         ])
-        .then(([resClient, resPoc]) =>
-            Promise.all([resClient.json(), resPoc.json()])
+        .then(([resClient, resPoc, resSa]) =>
+            Promise.all([resClient.json(), resPoc.json(), resSa.json()])
         )
-        .then(([dataClient, dataPoc]) => {
+        .then(([dataClient, dataPoc, dataSa]) => {
             setClient(dataClient);
             setPocs(dataPoc)
+            setSas(dataSa)
         })
     }, [])
 
     function handleCreatePocClick(){
-        setPocMenu(!pocMenu)
+        setAddPocMenu(!addPocMenu)
+    }
+
+    function handleViewPocClick(){
+        setViewPocs(!viewPocs)
+    }
+
+    function handleViewSaClick(){
+        setViewSas(!viewSas)
+    }
+
+    function handleCreateSaClick(){
+        setAddSaMenu(!addSaMenu)
     }
 
     function setUpdatePoc(newPoc) {
         setPocs([...pocs, newPoc])
+    }
+
+    function setUpdateSa(newSa) {
+        setPocs([...sas, newSa])
     }
 
     let clientId = parseInt(id)
@@ -67,6 +92,12 @@ function Assessments(){
 
     const displayPocs = findClientPoc.map(poc => 
         <PerceptionOfCareCard key={poc.id} poc={poc} />
+        )
+
+    const findClientSas = sas.filter(sa => (sa.client_id === clientId))
+
+    const displaySas = findClientSas.map(sa => 
+        <SampleAssessmentCard key={sa.id} sa={sa} />
         )
 
     return(
@@ -99,17 +130,52 @@ function Assessments(){
                 </Profile>
                 <section>
                 <h2>Mentee Assessments</h2>
-                    {pocMenu === false ? (
+                    {viewPocs === false ? (
+                        <button onClick={handleViewPocClick}>Perception of Care</button>
+                    ) : (
+                        <>
+                        <button onClick={handleViewPocClick}>Close</button>
+                        {addPocMenu === false ? (
                         <button onClick={handleCreatePocClick} >New Perception of Care</button>
                     ) : (
                         <>
                         <button onClick={handleCreatePocClick} >Close Form</button>
                         <PerceptionOfCareForm onNewPoc={setUpdatePoc} onCloseForm={handleCreatePocClick} />
+                        
                         </>
                     )}
-                    {
-                        displayPocs
-                    }
+                        {
+                            displayPocs
+                        }
+                        </>
+                    )}
+
+                    {viewSas === false ? (
+                        <button onClick={handleViewSaClick}>Sample Assessments</button>
+
+                    ) : (
+                        <>
+                        <button onClick={handleViewSaClick}>Close</button>
+                        {addSaMenu === false ? (
+                            <>
+                            <button onClick={handleCreateSaClick} >New Sample Assessment</button>
+                            <SaLineChart
+                            client={client} paramId={id} />
+                            </>
+                        ) : (
+                            <>
+                            <button onClick={handleCreateSaClick} >Close Form</button>
+                            <SampleAssessmentForm onNewSa={setUpdateSa} onCloseForm={handleCreateSaClick} />
+                            </>
+                        )}
+                        
+                        {
+                            displaySas
+                        }
+                        </>
+                    )}
+
+                   
                 </section>
         </Card>
     )

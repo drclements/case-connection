@@ -1,12 +1,12 @@
 class ClientsController < ApplicationController
 
     def index 
-        render json: Client.all
+        render json: Client.all, each_serializer: ClientWithImageSerializer
     end
 
     def show 
         client = find_client
-        render json: client
+        render json: client, serializer: ClientWithImageSerializer
     end
 
     def create 

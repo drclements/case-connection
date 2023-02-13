@@ -1,33 +1,9 @@
-import { useEffect, useState } from "react"
-import { useParams, useHistory } from 'react-router-dom';
-import styled from "styled-components";
-import axios from 'axios';
-
-const Card = styled.li`
-  border: 1px solid;
-  max-width: 90%;
-  min-width: 90%;
-  flex-wrap: wrap;
-  border-radius: 10px;
-  background-color: var(--white);
-  box-shadow: 0px 0px 2px 2px;
-  max-height: 40rem;
-  min-height: 40rem;
-  overflow: clip;
-  list-style-type: none;
-  margin: 10px
-`;
-
-const Profile = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-border-right: solid;
-min-width: 20rem;
-max-width: 20rem;
-text-align: center;
-`
+import React, {useState, useEffect} from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import styled from 'styled-components'
+import defaultProfilePhoto from '../assets/default-profile.png'
+import ClientPhoto from './ClientPhoto'
+import ClientUpdateForm from './ClientUpdateForm'
 
 const ProfileImg = styled.img`
 height: 15rem; 
@@ -36,78 +12,121 @@ border-radius: 50%;
 object-fit: cover
 `
 
-function ClientDetails() {
-    const { id } = useParams();
-    const [client, setClient] = useState([])
-    const {firstname, lastname, image, county, isActive, mentor_id, funding_id, age, gender, race, ethnicity, street_address, city, state, zip} = client
+
+const ClientDetails = ({clients}) => {
     const history = useHistory()
-  
+    const { id } = useParams();
+    const [addPictureMenu, setAddPictureMenu] = useState(false)
+    const [updatePictureMenu, setUpdatePictureMenu] = useState(false)
+    const [imageData, setImageData] = useState(null)
+    const [client, setClient] = useState([])
+ 
+
+    const {firstname, lastname, county, isActive, mentor_id, funding_id, age, gender, race, ethnicity, street_address, city, state, zip} = client
+
     useEffect(() => {
         fetch(`/clients/${id}`)
         .then(res => res.json())
         .then(clientData => setClient(clientData))
     }, [])
 
-    function handleTreatmentPlanClick() {
-        history.push(`/treatment-plan/${id}`)
+
+    function updateClick() {
+        history.push('/update-client-form')
     }
 
-    function handleProgressNoteClick() {
-        history.push(`/progress-note/${id}`)
+    function handleAddPictureClick() {
+        setAddPictureMenu(!addPictureMenu)
     }
 
-    function handleAssessmentClick() {
-        history.push(`/assessment/${id}`)
+    function handleUpdatePictureClick() {
+        setUpdatePictureMenu(!updatePictureMenu)
     }
 
-    return(
-        <div >
-            <Card className="flex" >
-                <Profile className="center">
-                    <h2>{`${firstname} ${lastname}`}</h2>
-                    <h3>County: {county}</h3>
-                    <label><strong>Mentee ID</strong></label>
-                    <p>{client.id}</p>
-                    {mentor_id === null ? (
-                        <button>Assign Mentor to Case</button>
-                    ) : (
-                    <p>{`Funding: ${mentor_id}`}</p>
-                    )}
-                    {funding_id === null ? (
-                        <button>Add Funding</button>
-                    ) : (
-                    <p>{`Funding: ${funding_id}`}</p>
-                    )
-                    }
-                    {isActive === true? (
-                        <p>
-                        <strong>Status:</strong> Active
-                        </p>  
-                        ) : (
-                            <p>
-                        <strong>Status:</strong> Inactive
-                        </p> 
-                        )}
-                </Profile>
-                <section style={{marginLeft:"20px"}}>
-                    <h2>Mentee Demographic</h2>
-                    <p><strong>Full Legal Name:</strong>{` ${firstname} ${lastname}`}</p>
-                    <p><strong>Age:</strong> {age}</p>
-                    <p><strong>Gender:</strong> {gender}</p>
-                    <p><strong>Race:</strong> {race}</p>
-                    <p><strong>Ethnicity:</strong> {ethnicity}</p>
-                    <h3>Home Address</h3>
-                    <p><strong>Street:</strong> {street_address}</p>
-                    <p><strong>City:</strong> {city}</p>
-                    <p><strong>State:</strong> {state}</p>
-                    <p><strong>Zip Code:</strong> {zip}</p>
-                </section>
-                <button onClick={handleTreatmentPlanClick}>Treatment Plan</button>
-                <button onClick={handleProgressNoteClick}>Progress Notes</button>
-                <button onClick={handleAssessmentClick}>Assessments</button>
-            </Card>
-        </div>
-    )
+    function handlePictureSubmit(e) {
+
+        const formData = new FormData()
+        formData.append('client_id', client.id)
+        formData.append('image_data', imageData)
+
+        fetch('/client_images', {
+            method: "POST",
+            body: formData
+        })
+    }
+
+    function handleUpdatePictureSubmit(e) {
+
+        const formData = new FormData()
+        formData.append('client_id', client.id)
+        formData.append('image_data', imageData)
+
+        fetch(`/client_images/${imgId}`, {
+            method: "PATCH",
+            body: formData
+        })
+    }
+
+    const findClient = clients?.filter((x) => x.id === client.id)
+    
+    const imgArr = findClient[0]?.client_images[0]?.image_data ? findClient.map(client => 
+        client.client_images[0].image_data 
+    ) : ""
+
+    const imgId = findClient[0]?.client_images[0] ? findClient.map(client => 
+        client.client_images[0].id
+    ) : ""
+    
+  return (
+    <div>
+        <h2>Mentee Demographic</h2>
+            <ClientPhoto />
+            <p><strong>Full Legal Name:</strong>{` ${firstname} ${lastname}`}</p>
+            {isActive === true ? (
+               <p><strong>Client Active</strong></p>
+            ) : (
+                <p><strong>Client Inactive</strong></p>
+            )}
+            <p><strong>Age:</strong> {age}</p>
+            <p><strong>Gender:</strong> {gender}</p>
+            <p><strong>Race:</strong> {race}</p>
+            <p><strong>Ethnicity:</strong> {ethnicity}</p>
+            <h3>Home Address</h3>
+            <p><strong>Street:</strong> {street_address}</p>
+            <p><strong>City:</strong> {city}</p>
+            <p><strong>State:</strong> {state}</p>
+            <p><strong>Zip Code:</strong> {zip}</p>
+            <p><strong>County:</strong> {county}</p>
+        <button onClick={updateClick}>Update Client Information</button>
+        <ClientUpdateForm client={client} setClient={setClient} />
+        {imgArr.length === 0 ? (
+        addPictureMenu === false ? (
+            <button onClick={handleAddPictureClick}>Add Photo</button>
+            ) : (
+            <>
+            <button onClick={handleAddPictureClick}>Close</button>
+            <form onSubmit={handlePictureSubmit}>
+                <input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></input>
+                <input type="submit"></input>
+            </form>
+            </>
+            )
+        ) : ( 
+            updatePictureMenu === false ? (
+                <button onClick={handleUpdatePictureClick}>Update Photo</button>
+            ) : (
+                <>
+                <button onClick={handleUpdatePictureClick}>Close</button>
+                <form
+                onSubmit={handleUpdatePictureSubmit}>
+                    <input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></input>
+                    <input type="submit"></input>
+                </form>
+                </>
+            )
+        )}
+    </div>
+  )
 }
 
 export default ClientDetails

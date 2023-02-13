@@ -3,13 +3,13 @@ import ClientCard from "./ClientCard"
 import styled from "styled-components"
 
 
+
 const CardDiv = styled.div`
 justify-content: space-evenly;
 `
 
 function MyCaseload() {
     const [clientList, setClientList] = useState([])
-    console.log(clientList)
     useEffect(() => {
         fetch('/clients')
         .then(res => res.json())
