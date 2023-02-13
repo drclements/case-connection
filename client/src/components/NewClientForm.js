@@ -20,20 +20,6 @@ function NewClientForm() {
         county: "",
         isActive: false,  
     })
-    console.log(formData)
-    
-    // function onImageChange(e) {
-    //     if (e.target.files[0]) {
-    //         console.log("image: ", e.target.files);
-    //         setImage(e.target.files[0]);
-    //         const reader = new FileReader();
-    //         reader.addEventListener("load", () => {
-    //           setImgData(reader.result);
-    //         });
-    //         reader.readAsDataURL(e.target.files[0]);
-    //       }
-    //     };
-
 
     function onFormChange(e) {
         setFormData({
@@ -60,11 +46,7 @@ function NewClientForm() {
         <div>
 
             <h2>Enroll New Mentee</h2>
-            {/* <img style={{height: "100px", width:"100px", objectFit: "cover", borderRadius: "50%"}} src={imgData}></img> */}
             <form onSubmit={handleSubmit}>
-                {/* <label>Upload Photo</label>
-                <input name="image" type="file" accept="image/*" onChange={onFormChange} ></input>
-                <br/> */}
                 <label>First Name:</label>
                 <input name="firstname" onChange={onFormChange}></input>
                 <br/>
@@ -86,9 +68,9 @@ function NewClientForm() {
                 <label>County:</label>
                 <select  name="county"  onChange={onFormChange}>
                 <option value="Select One">Select One</option>
-                    <option value="Nevada County">Nevada County</option>
-                    <option value="Placer County">Placer County</option>
-                    <option value="Sierra County">Sierra County</option>
+                    <option value="Henderson County">Henderson County</option>
+                    <option value="Buncombe County">Buncombe County</option>
+                    <option value="Translvania County">Translvania County</option>
                 </select>
 
                 <h3>Demographic</h3>

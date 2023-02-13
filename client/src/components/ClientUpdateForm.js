@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 const ClientUpdateForm = ({client, setClient}) => {
     const history = useHistory()
 
-    const {id,street_address, city, state, county, zip, isActive, firstname, lastname, age, gender, race, ethnicity, case_manager_id  } = client
+    const {id,street_address, city, state, county, zip, isActive, firstname, lastname, age, gender, race, ethnicity, case_manager_id, funding_id  } = client
 
     const [formData, setFormData] = useState({
         street_address,
@@ -19,8 +19,10 @@ const ClientUpdateForm = ({client, setClient}) => {
         gender, 
         race,
         ethnicity,
-        case_manager_id
+        case_manager_id, 
+        funding_id
     })
+
 
     function onFormChange(e) {
         setFormData({
@@ -54,6 +56,9 @@ const ClientUpdateForm = ({client, setClient}) => {
                 </select>
                 <label>Case Worker ID</label>
                 <input required type="number" defaultValue={case_manager_id} name="case_manager_id" onChange={onFormChange} />
+                <label>Funding ID</label>
+                <input required type="number" defaultValue={funding_id} name="funding_id" onChange={onFormChange} />
+                <br/>
                 <label>First Name:</label>
                 <input required defaultValue={firstname} name="firstname" onChange={onFormChange} />
                 <label>Last Name:</label>

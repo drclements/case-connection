@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import Login from "./components/Login"
 import Header from "./components/Header"
 import Dashboard from "./components/Dashboard";
@@ -19,6 +19,7 @@ import ClientDetails from "./components/ClientDetails";
 import ClientUpdateForm from "./components/ClientUpdateForm";
 
 function App() {
+  const history = useHistory()
   const [currentUser, setCurrentUser] = useState(null)
   const [users, setUsers] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -32,8 +33,6 @@ function App() {
         r.json().then((data) => {
           setCurrentUser(data)
         })
-        
-        .then(() => setIsLoading(false))
       }
     })
   }, [])

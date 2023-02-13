@@ -22,7 +22,7 @@ const ClientDetails = ({clients}) => {
     const [client, setClient] = useState([])
  
 
-    const {firstname, lastname, county, isActive, mentor_id, funding_id, age, gender, race, ethnicity, street_address, city, state, zip} = client
+    const {firstname, lastname, county, isActive, age, gender, race, ethnicity, street_address, city, state, zip} = client
 
     useEffect(() => {
         fetch(`/clients/${id}`)

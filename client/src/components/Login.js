@@ -3,36 +3,54 @@ import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
 import { Button } from "../styled-components/Buttons";
-import LoginPhoto from "../assets/IMG_1800.jpeg"
+import LoginPhoto from "../assets/IMG_8746.JPG"
+import "../index.css"
 
 
 const Image = styled.img`
-object-fit: cover;
-width: 500px;
-height: 550px
+    object-fit: cover;
+    width: 500px;
+    height: 550px
 `
 
 const Wrapper = styled.section`
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 16px;
+    max-width: 500px;
+    margin: 40px ;
+    padding: 16px;
 `;
 
 const Divider = styled.hr`
-  border: none;
-  border-bottom: 1px solid #ccc;
-  margin: 16px 0;
+    border: none;
+    border-bottom: 3px solid ;
+    margin: 16px 0;
+`;
+
+const PageContainer = styled.div`
+    display: flex;
+    justify-content: space-around;
+    margin-top: 3rem; 
+    margin-right: 1rem
+`
+
+const AppTitle = styled.h1`
+    font-size: 50px;
+    margin: 0;
+`
+const ProgramName = styled.div`
+    background-color: var(--cream);
+    padding: 1.25rem 2rem;
+    position: absolute;
+    top: 33.75rem;
+    right: 7.1rem;
 `;
 
 function Login({ onLogin }) {
     const [showLogin, setShowLogin] = useState(true);
     
     return (
-    <div className="flex" style={{marginTop: "1rem", marginRight:"1rem"}}>
-     
+    <PageContainer >
         <Wrapper>
-            <h1>Case</h1>
-            <h1>Connect</h1>
+            <AppTitle className="font-playfair">Case <br/> Connect</AppTitle>
             <p>Custom Case Management Solutions</p>
             <Divider/>
             <LoginForm onLogin={onLogin} />
@@ -62,7 +80,8 @@ function Login({ onLogin }) {
             )} */}
         </Wrapper>
         <Image src={LoginPhoto}></Image>
-    </div>
+        <ProgramName>Better Together Mentoring</ProgramName>
+    </PageContainer>
     );
   }
 

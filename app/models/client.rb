@@ -1,6 +1,6 @@
 class Client < ApplicationRecord
     belongs_to :case_manager, optional: true
-
+    belongs_to :funding, optional: true
 
     has_many :treatment_plans
     has_many :progress_notes

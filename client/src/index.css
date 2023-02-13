@@ -1,5 +1,13 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Sorts+Mill+Goudy&display=swap');
+
+
+
+
 :root {
   --dark-blue: #2f3949;
+  --cream: #faf6f6;
+  --light-blue: #b5ccdb;
 }
 
 * {
@@ -13,8 +21,6 @@
 
 body {
   margin: 0;
-  
-  
 }
 
 .center {
@@ -39,6 +45,14 @@ body {
 
 .no-margin {
   margin: 0;
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-sort-mill-goudy{
+  font-family: 'Sorts Mill Goudy', serif;
 }
 
 

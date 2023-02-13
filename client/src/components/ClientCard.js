@@ -28,7 +28,7 @@ const Image = styled.img`
 `;
 
 function ClientCard ({ client }) {
-    const {id, firstname, lastname, client_images, county, isActive} = client
+    const {id, firstname, lastname, client_images, county, isActive, funding} = client
     const history = useHistory()
 
     function handleOpenFile() {
@@ -47,6 +47,12 @@ function ClientCard ({ client }) {
                 <strong>County: </strong>
                 {county}
             </p>
+            {funding === null || funding === undefined ? (
+                        <p style={{color: "red"}}><strong>Funding: </strong>Unfunded</p>
+                    ) : (
+                    <p><strong>Funding: </strong>{` ${funding.name}`}</p>
+                    )
+                    }
             {isActive === true? (
                 <p>
                 <strong>Status:</strong> Active

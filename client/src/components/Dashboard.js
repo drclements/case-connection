@@ -5,14 +5,38 @@ import ProgramAnnouncements from "./ProgramAnnouncements";
 
 
 const PageFrame = styled.div`
-margin-left: 25px;
+margin: 25px;
 `
 const WelcomeTitle = styled.h2`
+`
 
+const Announcements = styled.div`
+    background-color: var(--light-blue);
+    border-radius: 15px;
+    padding: 5px;
+    margin: 1rem, 2rem;
+
+`
+
+const AnnouncementsHeader = styled.h4`
+    font-size: 20px;
+    margin: 5px
+`
+
+const ArrowHead = styled.button`
+    font-size: 50px;
+    margin: 0;
+    margin-right: 25px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    line-height: 0;
+    padding: 0
 `
 
 function Dashboard( { currentUser }) {
     const [announcements, setAnnouncements] = useState([])
+    const [announcementClick, setAnnouncementClick] = useState(false)
 
     useEffect(() => {
         fetch('/program_announcements')
@@ -21,16 +45,27 @@ function Dashboard( { currentUser }) {
     }, [])
 
     const displayAnnouncements = announcements.map(announcement => 
-        <ProgramAnnouncements announcement={announcement} />
+        <ProgramAnnouncements key={announcement.id} announcement={announcement} />
         )
+
+    function handledArrowClick (){
+        setAnnouncementClick(!announcementClick)
+    }
 
     return (
         <PageFrame >
-            <WelcomeTitle >
+            <WelcomeTitle className="font-sort-mill-goudy" >
                 {`Welcome, ${currentUser.firstname}!`}
             </WelcomeTitle>
-            <h4>Program Announcements</h4>
-            {displayAnnouncements}
+            <Announcements>
+                <div style={{justifyContent: "space-between"}} className="flex row">
+                <AnnouncementsHeader className="font-sort-mill-goudy" >Program Announcements</AnnouncementsHeader>
+                {announcementClick === false ? <ArrowHead onClick={handledArrowClick}>🢒</ArrowHead> : <ArrowHead style={{marginTop:"35px"}} onClick={handledArrowClick}>🢓</ArrowHead> }
+                </div>
+                <div >
+                    {announcementClick === true ? [displayAnnouncements] : null}
+                </div>
+            </Announcements>
             <MyFullCalendar />
         </PageFrame>
     )
