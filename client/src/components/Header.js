@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import defaultProfilePhoto from '../assets/default-profile.png'
 import {useEffect} from 'react'
 import ProfileImage from "./ProfileImage";
-import "./Header.css"
+
 
 const StyledHeader = styled.header`
   background-color: var(--dark-blue);
@@ -52,7 +52,7 @@ function Header( {currentUser, users}) {
     )
 
   return (
-    <StyledHeader   >
+    <StyledHeader className="header"  >
       <ProfileCard>
         {profileImageToDisplay}
         <Username>

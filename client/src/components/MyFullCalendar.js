@@ -1,31 +1,23 @@
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import events from './events'
+import styled from 'styled-components'
 
-// const events = [
-//   { title: 'Meeting', start: new Date() }
-// ]
+
+const CalendarDiv = styled.div`
+
+`
 
 export default function MyFullCalendar() {
   return (
-    <div>
-      <h2>Program Calendar</h2>
+    <CalendarDiv >
       <FullCalendar
+        id="calendar"
         plugins={[dayGridPlugin]}
         initialView='dayGridMonth'
-        weekends={true}
-        events={events}
+        weekends={true}   
       />
-    </div>
+    </CalendarDiv >
   )
 }
 
-// a custom render function
-// function renderEventContent(eventInfo) {
-//   return (
-//     <>
-//       <b>{eventInfo.timeText}</b>
-//       <i>{eventInfo.event.title}</i>
-//     </>
-//   )
-// }

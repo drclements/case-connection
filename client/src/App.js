@@ -17,6 +17,7 @@ import Profile from "./components/Profile";
 import ProfileUpdateForm from "./components/ProfileUpdateForm";
 import ClientDetails from "./components/ClientDetails";
 import ClientUpdateForm from "./components/ClientUpdateForm";
+import TreatmentPlanView from "./TreatmentPlanView";
 
 function App() {
   const history = useHistory()
@@ -51,7 +52,6 @@ function App() {
           setUsers(data)
       })
   }, [])
-
 
 
   function handleUserUpdate (updatedInfo) {
@@ -105,6 +105,9 @@ function App() {
         <Route path="/treatment-plan/:id"> 
           <TreatmentPlan />
         </Route>
+        <Route path="/view-treatment-plan/:id">
+          <TreatmentPlanView />
+        </Route>
         <Route path="/progress-note/:id"> 
           <ProgressNotes />
         </Route>
@@ -112,7 +115,7 @@ function App() {
           <Assessments />
         </Route>
         <Route path="/create-announcement">
-          <ProgramAnnouncementForm />
+          <ProgramAnnouncementForm currentUser={currentUser} />
         </Route>
         <Route path="/new-client">
           <NewClientForm />

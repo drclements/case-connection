@@ -4,38 +4,26 @@ import defaultProfilePhoto from '../assets/default-profile.png'
 import styled from "styled-components";
 import axios from 'axios';
 import ClientPhoto from "./ClientPhoto";
+import { Button } from "../styled-components/Buttons";
 
-const Card = styled.li`
-  border: 1px solid;
-  max-width: 90%;
-  min-width: 90%;
-  flex-wrap: wrap;
-  border-radius: 10px;
-  background-color: var(--white);
-  box-shadow: 0px 0px 2px 2px;
-  max-height: 40rem;
-  min-height: 40rem;
-  overflow: clip;
-  list-style-type: none;
-  margin: 10px
+const ButtonDiv = styled.div`
+  margin: 0 5rem;
+  justify-content: space-around;
 `;
 
-const Profile = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-border-right: solid;
-min-width: 20rem;
-max-width: 20rem;
-text-align: center;
+
+const CardDetails = styled.div`
+    background-color: white;
+    margin: 4rem 1rem; 
+    border-radius: 10px;
+    overflow: clip;  
 `
 
-const ProfileImg = styled.img`
-height: 15rem; 
-width: 15rem;
-border-radius: 50%;
-object-fit: cover
+const Profile = styled.div`
+    background-color: var(--light-blue);
+    margin: 2rem 5rem;
+    border-radius: 15px;
+    
 `
 
 function ClientChart() {
@@ -68,50 +56,46 @@ function ClientChart() {
 
     return(
         <div >
-            <Card className="flex" >
-                <Profile className="center">
-                    <ClientPhoto />
-                    <h2>{`${firstname} ${lastname}`}</h2>
-                    <h3>{county}</h3>
-                    <label><strong>Mentee ID</strong></label>
-                    <p>{client.id}</p>
-                    <label><strong>Case Worker</strong></label>
-                        {case_manager === null || case_manager === undefined ? <p style={{color: "red"}}>Assign Case Worker</p> : <p>{case_manager.firstname} {case_manager.lastname}</p>}
-                        <label><strong>Funding</strong></label>
-                    {funding === null || funding === undefined ? (
-                        <p style={{color: "red"}}>Unfunded</p>
-                    ) : (
-                    <p>{` ${funding.name}`}</p>
-                    )
-                    }
-                    {isActive === true? (
-                        <p>
-                        <strong>Status:</strong> Active
-                        </p>  
-                        ) : (
-                            <p>
-                        <strong>Status:</strong> Inactive
-                        </p> 
-                        )}
+                <Profile className="flex">
+                    <div style={{margin: "2rem 2rem 2rem 4rem"}}>
+                        <ClientPhoto />
+                    </div>
+                    <CardDetails>
+                        <div style={{margin:"1rem 7rem 0 2rem"}}>
+                            <h2 className="no-margin font-sort-mill-goudy">{`${firstname} ${lastname}`}</h2>
+                            <p className="no-margin font-sort-mill-goudy"><strong>County: </strong>{county}</p>
+                            <p className="no-margin font-sort-mill-goudy"><strong>Mentee ID: </strong>{client.id}</p>
+                        </div>
+                    </CardDetails>
+                    <CardDetails>
+                        <div style={{margin:"1rem 7rem 1rem 2rem"}}>
+                            <label className="font-sort-mill-goudy" style={{fontSize:"22px"}}><strong>Case Status</strong></label>
+                            <br/>
+                                {case_manager === null || case_manager === undefined ? <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Assign Case Worker</p> : <p className="no-margin font-sort-mill-goudy"><strong>Case Worker: </strong>{case_manager.firstname} {case_manager.lastname}</p>}
+                                {funding === null || funding === undefined ? (
+                                    <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Unfunded</p>
+                                ) : (
+                                <p className="no-margin font-sort-mill-goudy"><strong>Funding: </strong>{` ${funding.name}`}</p>
+                                )
+                                }
+                            {isActive === true? (
+                                <p className="no-margin font-sort-mill-goudy">
+                                <strong>Status:</strong> Active
+                                </p>  
+                                ) : (
+                                    <p className="no-margin font-sort-mill-goudy">
+                                <strong>Status:</strong> Inactive
+                                </p> 
+                                )}
+                        </div>
+                    </CardDetails>
                 </Profile>
-                <section style={{marginLeft:"20px"}}>
-                    <h2>Mentee Demographic</h2>
-                    <p><strong>Full Legal Name:</strong>{` ${firstname} ${lastname}`}</p>
-                    <p><strong>Age:</strong> {age}</p>
-                    <p><strong>Gender:</strong> {gender}</p>
-                    <p><strong>Race:</strong> {race}</p>
-                    <p><strong>Ethnicity:</strong> {ethnicity}</p>
-                    <h3>Home Address</h3>
-                    <p><strong>Street:</strong> {street_address}</p>
-                    <p><strong>City:</strong> {city}</p>
-                    <p><strong>State:</strong> {state}</p>
-                    <p><strong>Zip Code:</strong> {zip}</p>
-                    <button onClick={handleUpdateFileCLick}>Client Details</button>
-                </section>
-                <button onClick={handleTreatmentPlanClick}>Treatment Plan</button>
-                <button onClick={handleProgressNoteClick}>Progress Notes</button>
-                <button onClick={handleAssessmentClick}>Assessments</button>
-            </Card>
+                <ButtonDiv className="flex">
+                    <Button style={{padding: "2rem"}} className="no-margin font-sort-mill-goudy" onClick={handleUpdateFileCLick}>Client Details</Button>
+                    <Button className="no-margin font-sort-mill-goudy" onClick={handleTreatmentPlanClick}>Treatment Plan</Button>
+                    <Button className="no-margin font-sort-mill-goudy" onClick={handleProgressNoteClick}>Progress Notes</Button>
+                    <Button className="no-margin font-sort-mill-goudy" onClick={handleAssessmentClick}>Assessments</Button>
+                </ButtonDiv> 
         </div>
     )
 }

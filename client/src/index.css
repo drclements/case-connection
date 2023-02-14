@@ -47,6 +47,10 @@ body {
   margin: 0;
 }
 
+.space-evenly {
+  justify-content: space-evenly;
+}
+
 .font-playfair {
   font-family: 'Playfair Display', serif;
 }
@@ -54,6 +58,18 @@ body {
 .font-sort-mill-goudy{
   font-family: 'Sorts Mill Goudy', serif;
 }
+
+.header {
+  position: sticky !important;
+  top: 0;
+  width: 100%;  
+  z-index:2 
+}
+
+.calendar {
+    position:relative;
+   }
+
 
 
 

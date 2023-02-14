@@ -5,7 +5,7 @@ import ProgramAnnouncements from "./ProgramAnnouncements";
 
 
 const PageFrame = styled.div`
-margin: 25px;
+    margin: 2rem 4rem;
 `
 const WelcomeTitle = styled.h2`
 `
@@ -44,29 +44,39 @@ function Dashboard( { currentUser }) {
             .then(data => setAnnouncements(data))
     }, [])
 
+    function onDelete (id) {
+        setAnnouncements(announcements.filter((announcement) => announcement.id !== id));
+    };
+
     const displayAnnouncements = announcements.map(announcement => 
-        <ProgramAnnouncements key={announcement.id} announcement={announcement} />
+        <ProgramAnnouncements onDelete={onDelete} currentUser={currentUser} key={announcement.id} announcement={announcement} />
         )
+
 
     function handledArrowClick (){
         setAnnouncementClick(!announcementClick)
     }
 
     return (
-        <PageFrame >
+        <PageFrame  >
             <WelcomeTitle className="font-sort-mill-goudy" >
                 {`Welcome, ${currentUser.firstname}!`}
             </WelcomeTitle>
             <Announcements>
                 <div style={{justifyContent: "space-between"}} className="flex row">
                 <AnnouncementsHeader className="font-sort-mill-goudy" >Program Announcements</AnnouncementsHeader>
-                {announcementClick === false ? <ArrowHead onClick={handledArrowClick}>🢒</ArrowHead> : <ArrowHead style={{marginTop:"35px"}} onClick={handledArrowClick}>🢓</ArrowHead> }
+                {announcementClick === true ? 
+                    <ArrowHead onClick={handledArrowClick}>🢒</ArrowHead> 
+                    : 
+                    <ArrowHead style={{marginTop:"35px"}} onClick={handledArrowClick}>🢓</ArrowHead> }
                 </div>
                 <div >
-                    {announcementClick === true ? [displayAnnouncements] : null}
+                    {announcementClick === false ? [displayAnnouncements] : null}
                 </div>
             </Announcements>
-            <MyFullCalendar />
+            <div style={{marginTop: "15px"}}>
+               <MyFullCalendar  /> 
+            </div>
         </PageFrame>
     )
 }
