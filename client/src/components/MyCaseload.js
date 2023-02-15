@@ -21,8 +21,8 @@ function MyCaseload() {
     )
 
     return (
-        <div >
-            <h2 className="center">My Caseload</h2>
+        <div styles={{height: "100vh"}} >
+            <h2  className="center font-sort-mill-goudy">My Caseload</h2>
             <CardDiv className="flex">
                 {clientToDisplay}
             </CardDiv>

@@ -4,25 +4,60 @@ import styled from 'styled-components'
 import defaultProfilePhoto from '../assets/default-profile.png'
 import ClientPhoto from './ClientPhoto'
 import ClientUpdateForm from './ClientUpdateForm'
+import { Button } from "../styled-components/Buttons";
+import { Input } from '../styled-components/input'
 
-const ProfileImg = styled.img`
-height: 15rem; 
-width: 15rem;
-border-radius: 50%;
-object-fit: cover
+const Profile = styled.div`
+    background-color: var(--light-blue);
+    margin: 2rem 5rem;
+    border-radius: 15px;
+`
+const ButtonDiv = styled.div`
+    margin: 0 5rem;
 `
 
+const CardDetails = styled.div`
+    background-color: white;
+    margin: 4rem 1rem; 
+    border-radius: 10px;
+    overflow: clip;  
+`
+
+const DemographicContainer = styled.div`
+    background-color: var(--light-blue);
+    margin: 1rem 5rem;
+    border-radius: 15px;
+    padding: 1rem 0;
+`
+
+const DemographicDetails = styled.div`
+    border: none;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1rem 4rem 1rem 2rem;
+    margin: 0 2rem;
+`
+
+const DetailBox = styled.div`
+    margin: 1rem 4rem ; 
+    justify-content:space-evenly; 
+`
+
+const DetailBoxBottom = styled.div`
+    margin: 1rem 4rem
+`
 
 const ClientDetails = ({clients}) => {
     const history = useHistory()
     const { id } = useParams();
     const [addPictureMenu, setAddPictureMenu] = useState(false)
     const [updatePictureMenu, setUpdatePictureMenu] = useState(false)
+    const [demoUpdate, setDemoUpdate] = useState(false)
     const [imageData, setImageData] = useState(null)
     const [client, setClient] = useState([])
  
 
-    const {firstname, lastname, county, isActive, mentor_id, funding_id, age, gender, race, ethnicity, street_address, city, state, zip} = client
+    const {firstname, lastname, image, county, isActive, funding_id, age, gender, race, ethnicity, street_address, city, state, zip, case_manager, funding} = client
 
     useEffect(() => {
         fetch(`/clients/${id}`)
@@ -32,7 +67,7 @@ const ClientDetails = ({clients}) => {
 
 
     function updateClick() {
-        history.push('/update-client-form')
+        setDemoUpdate(!demoUpdate)
     }
 
     function handleAddPictureClick() {
@@ -79,52 +114,107 @@ const ClientDetails = ({clients}) => {
     
   return (
     <div>
-        <h2>Mentee Demographic</h2>
-            <ClientPhoto />
-            <p><strong>Full Legal Name:</strong>{` ${firstname} ${lastname}`}</p>
-            {isActive === true ? (
-               <p><strong>Client Active</strong></p>
+        <h2 style={{margin: "2rem 5rem"}}>Mentee Demographic</h2>
+        <Profile className="flex">
+            <div style={{margin: "2rem 2rem 2rem 4rem"}}>
+                <ClientPhoto />
+            </div>
+            <CardDetails>
+                <div style={{margin:"1rem 7rem 0 2rem"}}>
+                    <h2 className="no-margin font-sort-mill-goudy">{`${firstname} ${lastname}`}</h2>
+                    <p className="no-margin font-sort-mill-goudy"><strong>County: </strong>{county}</p>
+                    <p className="no-margin font-sort-mill-goudy"><strong>Mentee ID: </strong>{client.id}</p>
+                </div>
+            </CardDetails>
+            <CardDetails>
+                <div style={{margin:"1rem 7rem 1rem 2rem"}}>
+                    <label className="font-sort-mill-goudy" style={{fontSize:"22px"}}><strong>Case Status</strong></label>
+                    <br/>
+                        {case_manager === null || case_manager === undefined ? <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Assign Case Worker</p> : <p className="no-margin font-sort-mill-goudy"><strong>Case Worker: </strong>{case_manager.firstname} {case_manager.lastname}</p>}
+                        {funding === null || funding === undefined ? (
+                            <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Unfunded</p>
+                        ) : (
+                        <p className="no-margin font-sort-mill-goudy"><strong>Funding: </strong>{` ${funding.name}`}</p>
+                        )
+                        }
+                    {isActive === true? (
+                        <p className="no-margin font-sort-mill-goudy">
+                        <strong>Status:</strong> Active
+                        </p>  
+                        ) : (
+                            <p className="no-margin font-sort-mill-goudy">
+                        <strong>Status:</strong> Inactive
+                        </p> 
+                        )}
+                </div>
+            </CardDetails>
+        </Profile>
+        <DemographicContainer>
+            <div >
+                <h3 style={{backgroundColor: "white", borderRadius: "10px", padding: "1rem", margin:"0 6rem"}} className='center no-margin'>Demographic Information</h3>
+            </div>
+            <DetailBox className='flex' >
+            <DemographicDetails>
+                <p><strong>Mentee Name:</strong>{` ${firstname} ${lastname}`}</p>
+                {isActive === true ? (
+                <p><strong>Client: </strong>Active</p>
+                ) : (
+                    <p><strong>Client: </strong>Inactive</p>
+                )}
+                <p><strong>Age:</strong> {age}</p>
+            </DemographicDetails>
+            <DemographicDetails>
+                <p><strong>Gender:</strong> {gender}</p>
+                <p><strong>Race:</strong> {race}</p>
+                <p><strong>Ethnicity:</strong> {ethnicity}</p>
+            </DemographicDetails>
+            </DetailBox>
+            <DetailBoxBottom >
+                <DemographicDetails>
+                    <h3>Home Address</h3>
+                    <p><strong>Street:</strong> {street_address}</p>
+                    <p><strong>City:</strong> {city}</p>
+                    <p><strong>State:</strong> {state}</p>
+                    <p><strong>Zip Code:</strong> {zip}</p>
+                    <p><strong>County:</strong> {county}</p>
+                </DemographicDetails>
+            {demoUpdate === false ? (
+                null
             ) : (
-                <p><strong>Client Inactive</strong></p>
+                <ClientUpdateForm demoUpdate={demoUpdate} setDemoUpdate={setDemoUpdate} client={client} setClient={setClient} />
             )}
-            <p><strong>Age:</strong> {age}</p>
-            <p><strong>Gender:</strong> {gender}</p>
-            <p><strong>Race:</strong> {race}</p>
-            <p><strong>Ethnicity:</strong> {ethnicity}</p>
-            <h3>Home Address</h3>
-            <p><strong>Street:</strong> {street_address}</p>
-            <p><strong>City:</strong> {city}</p>
-            <p><strong>State:</strong> {state}</p>
-            <p><strong>Zip Code:</strong> {zip}</p>
-            <p><strong>County:</strong> {county}</p>
-        <button onClick={updateClick}>Update Client Information</button>
-        <ClientUpdateForm client={client} setClient={setClient} />
-        {imgArr.length === 0 ? (
-        addPictureMenu === false ? (
-            <button onClick={handleAddPictureClick}>Add Photo</button>
-            ) : (
-            <>
-            <button onClick={handleAddPictureClick}>Close</button>
-            <form onSubmit={handlePictureSubmit}>
-                <input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></input>
-                <input type="submit"></input>
-            </form>
-            </>
-            )
-        ) : ( 
-            updatePictureMenu === false ? (
-                <button onClick={handleUpdatePictureClick}>Update Photo</button>
-            ) : (
-                <>
-                <button onClick={handleUpdatePictureClick}>Close</button>
-                <form
-                onSubmit={handleUpdatePictureSubmit}>
-                    <input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></input>
-                    <input type="submit"></input>
-                </form>
-                </>
-            )
-        )}
+            </DetailBoxBottom>
+        </DemographicContainer>
+        <ButtonDiv className=' center'>
+            {demoUpdate === false ? <Button onClick={updateClick}>Update Client Information</Button> : <Button onClick={updateClick}>Close Form</Button> }
+            
+                {imgArr.length === 0 ? (
+                addPictureMenu === false ? (
+                    <Button onClick={handleAddPictureClick}>Add Photo</Button>
+                    ) : (
+                    <>
+                    <form onSubmit={handlePictureSubmit}>
+                        <Input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></Input>
+                        <input type="submit"></input>
+                    </form>
+                    <Button onClick={handleAddPictureClick}>Close</Button>
+                    </>
+                    )
+                ) : ( 
+                    updatePictureMenu === false ? (
+                        <Button onClick={handleUpdatePictureClick}>Update Photo</Button>
+                    ) : (
+                        <>
+                        <form
+                        onSubmit={handleUpdatePictureSubmit}>
+                            <Input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></Input>
+                            <input type="submit"></input>
+                        </form>
+                        <Button onClick={handleUpdatePictureClick}>Close</Button>
+                        </>
+                    )
+                )}
+        </ButtonDiv>
     </div>
   )
 }

@@ -1,21 +1,18 @@
 import React, {useState, useEffect} from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import defaultProfilePhoto from '../assets/default-profile.png'
 
 const ProfileImg = styled.img`
-height: 15rem; 
-width: 15rem;
+height: 12rem; 
+width: 12rem;
 border-radius: 50%;
-object-fit: cover
+object-fit: cover;
+
 `
 
 const ClientPhoto = () => {
-    const history = useHistory()
     const { id } = useParams();
-    const [addPictureMenu, setAddPictureMenu] = useState(false)
-    const [updatePictureMenu, setUpdatePictureMenu] = useState(false)
-    const [imageData, setImageData] = useState(null)
     const [client, setClient] = useState([])
     const [clients, setClients] = useState([])
 
@@ -38,8 +35,6 @@ const ClientPhoto = () => {
     const imgArr = findClient[0]?.client_images[0]?.image_data ? findClient.map(client => 
         client.client_images[0].image_data 
     ) : ""
-
-
 
   return (
     <ProfileImg src={imgArr.length === 0 ? defaultProfilePhoto : imgArr} />

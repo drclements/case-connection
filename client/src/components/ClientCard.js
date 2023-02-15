@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useHistory } from 'react-router-dom';
 import defaultProfilePhoto from '../assets/default-profile.png'
+import { Button } from "../styled-components/Buttons";
 
 
 const Card = styled.li`
@@ -9,26 +10,31 @@ const Card = styled.li`
   min-width: 25%;
   flex-wrap: wrap;
   border-radius: 10px;
-  background-color: var(--white);
+  background-color: var(--light-blue);
   box-shadow: 0px 0px 2px 2px;
   max-height: 100rem;
   min-height: 15rem;
   overflow: clip;
   list-style-type: none;
-  margin-left: 10px
+  margin-left: 10px;
+  padding: 10px 0;
 `;
+
+const CardDetails = styled.div`
+    background-color: white;
+    margin: 15px;
+    border-radius: 10px
+`
 
 const Image = styled.img`
   height: 200px;
   width: 200px;
   object-fit: cover;
-  
   border-radius: 50%;
-  
 `;
 
 function ClientCard ({ client }) {
-    const {id, firstname, lastname, client_images, county, isActive} = client
+    const {id, firstname, lastname, client_images, county, isActive, funding} = client
     const history = useHistory()
 
     function handleOpenFile() {
@@ -42,21 +48,30 @@ function ClientCard ({ client }) {
     return (
         <Card className="center">
             <Image src={displayImg.length === 0 ? defaultProfilePhoto : displayImg} alt={`${firstname} ${lastname} Photo`}></Image>
-            <h3>{`${firstname} ${lastname}`}</h3>
-            <p>
-                <strong>County: </strong>
-                {county}
-            </p>
-            {isActive === true? (
-                <p>
-                <strong>Status:</strong> Active
-                </p>  
-                ) : (
-                    <p>
-                <strong>Status:</strong> Inactive
-                </p> 
-                )}
-                <button onClick={handleOpenFile}>Open File</button>
+            <CardDetails >
+                <h3 className="no-margin font-sort-mill-goudy">{`${firstname} ${lastname}`}</h3>
+                <p className="no-margin font-sort-mill-goudy">
+                    <strong>County: </strong>
+                    {county}
+                </p>
+                {funding === null || funding === undefined ? (
+                            <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}><strong>Funding: </strong>Unfunded</p>
+                        ) : (
+                        <p className="no-margin font-sort-mill-goudy"><strong>Funding: </strong>{` ${funding.name}`}</p>
+                        )
+                        }
+                {isActive === true? (
+                    <p className="no-margin font-sort-mill-goudy">
+                    <strong>Status:</strong> Active
+                    </p>  
+                    ) : (
+                        <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>
+                    <strong>Status:</strong> Inactive
+                    </p> 
+                    )}
+            </CardDetails>
+                    <Button style={{margin: "0"}} className="no-margin font-sort-mill-goudy" onClick={handleOpenFile}>Open File</Button>
+                
         </Card>
     )
 }

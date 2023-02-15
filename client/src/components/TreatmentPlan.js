@@ -3,30 +3,30 @@ import { useParams, useHistory } from "react-router-dom";
 import {useState, useEffect} from 'react'
 import TreatmentPlanForm from "./TreatmentPlanForm";
 import TreatmentPlanCard from "./TreatmentPlanCard";
-
-const Card = styled.li`
-border: 1px solid;
-max-width: 90%;
-min-width: 90%;
-flex-wrap: wrap;
-border-radius: 10px;
-background-color: var(--white);
-box-shadow: 0px 0px 2px 2px;
-min-height: 40rem;
-overflow: clip;
-list-style-type: none;
-margin: 10px
-`;
+import ClientPhoto from "./ClientPhoto";
+import { Button } from "../styled-components/Buttons";
 
 const Profile = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-border-right: solid;
-min-width: 20rem;
-max-width: 20rem;
-text-align: center;
+    background-color: var(--light-blue);
+    margin: 2rem 5rem;
+    border-radius: 15px;
+`
+const ButtonDiv = styled.div`
+    margin: 0 5rem;
+`
+
+const CardDetails = styled.div`
+    background-color: white;
+    margin: 4rem 1rem; 
+    border-radius: 10px;
+    overflow: clip;  
+`
+
+const CardDiv = styled.div`
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 0 3rem
+    
 `
 
 function TreatmentPlan(){
@@ -34,7 +34,7 @@ function TreatmentPlan(){
     const [client, setClient] = useState([])
     const [treatmentPlans, setTreatmentPlans] = useState([])
     const [treatmentPlanMenu, setTreatmentPlanMenu] = useState(false)
-    const {firstname, lastname, image, county, isActive, mentor_id, funding_id} = client
+    const {firstname, lastname, county, isActive, case_manager, funding} = client
    
     
   
@@ -56,59 +56,72 @@ function TreatmentPlan(){
         setTreatmentPlanMenu(!treatmentPlanMenu)
     }
 
+    function updateTPList(updatedData) {
+        setTreatmentPlans([...treatmentPlans, updatedData]);
+    }
+
     let clientId = parseInt(id)
-  
+
     const findClientTreatmentPlans = treatmentPlans.filter(treatmentPlan => (treatmentPlan.client_id === clientId))
 
     const displayTreatmentPlans = findClientTreatmentPlans.map(treatmentPlan => 
-       <TreatmentPlanCard key={treatmentPlan.id} treatmentPlan={treatmentPlan} />
+        <TreatmentPlanCard key={treatmentPlan.id} treatmentPlan={treatmentPlan} />
         )
     
-
-    return(
-        <Card className="flex">
-            <Profile className="center">
-                    <h2>{`${firstname} ${lastname}`}</h2>
-                    <h4>County: {county}</h4>
-                    <label><strong>Mentee ID</strong></label>
-                    <p>{client.id}</p>
-                    {mentor_id === null ? (
-                        <button>Assign Mentor to Case</button>
-                    ) : (
-                    <p>{`Funding: ${mentor_id}`}</p>
-                    )}
-                    {funding_id === null ? (
-                        <button>Add Funding</button>
-                    ) : (
-                    <p>{`Funding: ${funding_id}`}</p>
-                    )
-                    }
+        return(
+            <div >
+            <h2 style={{margin: "2rem 5rem"}}>Mentee Treatment Plan</h2>
+            <Profile className="flex">
+            <div style={{margin: "2rem 2rem 2rem 4rem"}}>
+                <ClientPhoto />
+            </div>
+            <CardDetails>
+                <div style={{margin:"1rem 7rem 0 2rem"}}>
+                    <h2 className="no-margin font-sort-mill-goudy">{`${firstname} ${lastname}`}</h2>
+                    <p className="no-margin font-sort-mill-goudy"><strong>County: </strong>{county}</p>
+                    <p className="no-margin font-sort-mill-goudy"><strong>Mentee ID: </strong>{client.id}</p>
+                </div>
+            </CardDetails>
+            <CardDetails>
+                <div style={{margin:"1rem 7rem 1rem 2rem"}}>
+                    <label className="font-sort-mill-goudy" style={{fontSize:"22px"}}><strong>Case Status</strong></label>
+                    <br/>
+                        {case_manager === null || case_manager === undefined ? <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Assign Case Worker</p> : <p className="no-margin font-sort-mill-goudy"><strong>Case Worker: </strong>{case_manager.firstname} {case_manager.lastname}</p>}
+                        {funding === null || funding === undefined ? (
+                            <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Unfunded</p>
+                        ) : (
+                        <p className="no-margin font-sort-mill-goudy"><strong>Funding: </strong>{` ${funding.name}`}</p>
+                        )
+                        }
                     {isActive === true? (
-                        <p>
+                        <p className="no-margin font-sort-mill-goudy">
                         <strong>Status:</strong> Active
                         </p>  
                         ) : (
-                            <p>
+                            <p className="no-margin font-sort-mill-goudy">
                         <strong>Status:</strong> Inactive
                         </p> 
                         )}
-                </Profile>
-                <section style={{marginLeft:"20px"}}>
-                    <h2>Mentee Treatment Plan</h2>
+                </div>
+            </CardDetails>
+            </Profile>
+            <div >
+                <div style={{margin:"0 5rem"}} >
                     {treatmentPlanMenu === false ? (
-                        <button onClick={handleCreateTreatmentPlanClick} >Create New Treatment Plan</button>
+                        <Button onClick={handleCreateTreatmentPlanClick} >Create New Treatment Plan</Button>
                     ) : (
                         <>
-                        <button onClick={handleCreateTreatmentPlanClick} >Close Form</button>
-                        <TreatmentPlanForm onCloseForm={handleCreateTreatmentPlanClick} />
+                        <Button onClick={handleCreateTreatmentPlanClick} >Close Form</Button>
+                        <TreatmentPlanForm onUpdateTP={updateTPList} client={client} onCloseForm={handleCreateTreatmentPlanClick} />
                         </>
                     )}
-                    {
-                        displayTreatmentPlans
-                    }
-                </section>
+                </div>
+                <CardDiv className="flex">
+                    { displayTreatmentPlans }
+                </CardDiv>
+            </div>
                 
-        </Card>
+        </div>
     )
 }
 

@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from 'styled-components';
 import defaultProfilePhoto from '../assets/default-profile.png'
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import ProfileImage from "./ProfileImage";
+
 
 const StyledHeader = styled.header`
   background-color: var(--dark-blue);
@@ -27,7 +28,6 @@ const Username = styled.div`
   right: 4rem;
   z-index: 1;
 
- 
 `;
 
 const MenuDiv = styled.div`
@@ -45,29 +45,28 @@ margin-top: 2.5rem;
 
 function Header( {currentUser, users}) {
   
-
   const findUser = users?.filter((user) => user.id === currentUser.id)
 
     const profileImageToDisplay = findUser.map(user => 
-        <ProfileImage user={user} />
+        <ProfileImage key={user.id} user={user} />
     )
 
   return (
-    <StyledHeader >
+    <StyledHeader className="header"  >
       <ProfileCard>
         {profileImageToDisplay}
         <Username>
           {!currentUser ? '' :
           <>
-          <p>{currentUser.firstname}  {currentUser.lastname}</p>
-          <p>Case Manager</p>
+          <p className="font-sort-mill-goudy">{currentUser.firstname}  {currentUser.lastname}</p>
+          <p className="font-sort-mill-goudy">Case Manager</p>
           </>}
         </Username>
       </ProfileCard>
       <MenuDiv > 
         <h2 style={{marginLeft: "20px", color: "white"}}>M e n u</h2>
       </MenuDiv>
-      <PageTitle>Case Connect</PageTitle>
+      <PageTitle className="font-playfair">Case Connect</PageTitle>
     </StyledHeader>
   );
 }

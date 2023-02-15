@@ -1,11 +1,19 @@
 import { preventDefault } from '@fullcalendar/core/internal'
 import React, { useState, } from 'react'
 import { useHistory } from 'react-router-dom'
+import { Input, Select } from '../styled-components/input'
+import { FormContainer } from '../styled-components/Forms'
+import { Label } from '../styled-components/Label'
+import { Button } from '../styled-components/Buttons'
+import styled from 'styled-components'
 
-const ClientUpdateForm = ({client, setClient}) => {
+
+
+
+const ClientUpdateForm = ({client, setClient, setDemoUpdate, demoUpdate}) => {
     const history = useHistory()
 
-    const {id,street_address, city, state, county, zip, isActive, firstname, lastname, age, gender, race, ethnicity, case_manager_id  } = client
+    const {id,street_address, city, state, county, zip, isActive, firstname, lastname, age, gender, race, ethnicity, case_manager_id, funding_id  } = client
 
     const [formData, setFormData] = useState({
         street_address,
@@ -19,8 +27,10 @@ const ClientUpdateForm = ({client, setClient}) => {
         gender, 
         race,
         ethnicity,
-        case_manager_id
+        case_manager_id, 
+        funding_id
     })
+
 
     function onFormChange(e) {
         setFormData({
@@ -30,7 +40,7 @@ const ClientUpdateForm = ({client, setClient}) => {
     }
 
     function handleProfileUpdate(e) {
-        e.preventDefault()
+        
         fetch(`/clients/${id}`, {
             method: "PATCH",
             headers: {
@@ -39,51 +49,84 @@ const ClientUpdateForm = ({client, setClient}) => {
             body: JSON.stringify(formData) 
         })
             .then((r) => r.json())
-            .then(data => setClient(data))
+            .then(data => {
+                setClient(data)
+                setDemoUpdate(!demoUpdate)
+            })
     }
 
     return (
-    <div>
+    <FormContainer>
         <form onSubmit={handleProfileUpdate}>
-                <label><strong>Update Profile Information</strong></label>
+                <Label style={{fontSize: "20px"}}><strong>Update Profile Information</strong></Label>
                 <br/>
-                <label>Case Status</label>
-                <select required onChange={onFormChange} defaultValue={isActive} name="isActive">
-                    <option value="false">Inactive</option>
-                    <option value="true">Active</option>
-                </select>
-                <label>Case Worker ID</label>
-                <input required type="number" defaultValue={case_manager_id} name="case_manager_id" onChange={onFormChange} />
-                <label>First Name:</label>
-                <input required defaultValue={firstname} name="firstname" onChange={onFormChange} />
-                <label>Last Name:</label>
-                <input required defaultValue={lastname} name="lastname"  onChange={onFormChange} />
+                <div style={{margin: ".5rem"}} className='flex'>
+                    <Label style={{margin: ".5rem"}} >Case Status: </Label>
+                    <Select required onChange={onFormChange} defaultValue={isActive} name="isActive">
+                        <option value="false">Inactive</option>
+                        <option value="true">Active</option>
+                    </Select>
+                    <Label style={{margin: ".5rem"}}>Case Worker ID: </Label>
+                    <Input required type="number" defaultValue={case_manager_id} name="case_manager_id" onChange={onFormChange} />
+                    <Label style={{margin: ".5rem"}}>Funding ID: </Label>
+                    <Input required type="number" defaultValue={funding_id} name="funding_id" onChange={onFormChange} />
+                    <br/>
+                </div>
+                <Label>First Name:</Label>
+                <Input required defaultValue={firstname} name="firstname" onChange={onFormChange} />
+                <Label>Last Name:</Label>
+                <Input required defaultValue={lastname} name="lastname"  onChange={onFormChange} />
                 <br/>
-                <label>Age: </label>
-                <input required type="number" defaultValue={age} name="age" onChange={onFormChange} />
+                <Label>Age: </Label>
+                <Input required type="number" defaultValue={age} name="age" onChange={onFormChange} />
                 <br/>
-                <label>Gender: </label>
-                <input required  defaultValue={gender} name="gender" onChange={onFormChange} />
+                <Label>Gender: </Label>
+                <Select required defaultValue={gender} name="gender" onChange={onFormChange}>
+                    <option value="Prefer not to disclose">Prefer not to disclose</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Non-binary/non-conforming">Non-binary/non-conforming</option>
+                </Select>
                 <br/>
-                <label>Race: </label>
-                <input required  defaultValue={race} name="race" onChange={onFormChange} />
+                <Label>Race: </Label>
+                <Select required defaultValue={race}  name="race" onChange={onFormChange}>
+                    <option value="Prefer not to disclose">Prefer not to disclose</option>
+                    <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
+                    <option value="Asian">Asian</option>
+                    <option value="Black or African American">Black or African American</option>
+                    <option value="Hispanic or Latino">Hispanic or Latinx</option>
+                    <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+                    <option value="White">White</option>
+                    <option value="Two or More Races">Two or More Races</option>
+                </Select>
                 <br/>
-                <label>Ethnicity: </label>
-                <input required  defaultValue={ethnicity} name="ethnicity" onChange={onFormChange} />
+                <Label>Ethnicity: </Label>
+                <Select required defaultValue={ethnicity}  name="ethnicity" onChange={onFormChange}>
+                    <option value="Prefer not to disclose">Prefer not to disclose</option>
+                    <option value="Hispanic or Latinx">Hispanic or Latinx</option>
+                    <option value=" Not Hispanic or Latinx">Not Hispanic or Latinx</option>
+                </Select>
                 <br/>
-                <label>Street: </label>
-                <input required defaultValue={street_address} name="street_address" onChange={onFormChange} />
+                <Label>Street: </Label>
+                <Input required defaultValue={street_address} name="street_address" onChange={onFormChange} />
                 <br/>
-                <label>City: </label>
-                <input required defaultValue={city} name="city" onChange={onFormChange} />
+                <Label>City: </Label>
+                <Input required defaultValue={city} name="city" onChange={onFormChange} />
                 <br/>
-                <label>State: </label>
-                <input required defaultValue={state} name="state" onChange={onFormChange} />
-                <label>Zip Code: </label>
-                <input required defaultValue={zip} name="zip" onChange={onFormChange} />
-                <button type="submit">Update</button>
+                <Label>State: </Label>
+                <Input required defaultValue={state} name="state" onChange={onFormChange} />
+                <Label>Zip Code: </Label>
+                <Input required defaultValue={zip} name="zip" onChange={onFormChange} />
+                <Label>County:</Label>
+                <Select  name="county"  onChange={onFormChange}>
+                    <option value="Select One">Select One</option>
+                    <option value="Henderson County">Henderson County</option>
+                    <option value="Buncombe County">Buncombe County</option>
+                    <option value="Translvania County">Translvania County</option>
+                </Select>
+                <Button type="submit">Update</Button>
             </form>
-    </div>
+    </FormContainer>
   )
 }
 
