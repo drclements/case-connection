@@ -78,6 +78,7 @@ function PerceptionOfCareForm({onCloseForm, onNewPoc, client}) {
         }).then((r) => r.json())
         .then((data) => {
             onNewPoc(data)
+            onCloseForm()
         })
         e.target.reset()
     }

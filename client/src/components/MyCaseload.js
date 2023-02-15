@@ -6,6 +6,7 @@ import styled from "styled-components"
 
 const CardDiv = styled.div`
 justify-content: space-evenly;
+flex-wrap: wrap;
 `
 
 function MyCaseload() {
@@ -21,13 +22,11 @@ function MyCaseload() {
     )
 
     return (
-        <div styles={{height: "100vh"}} >
+        <div >
             <h2  className="center font-sort-mill-goudy">My Caseload</h2>
             <CardDiv className="flex">
                 {clientToDisplay}
             </CardDiv>
-            
-
         </div>
     )
 }

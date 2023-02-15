@@ -116,6 +116,7 @@ function ProgressNoteForm({onCloseForm, onNewProgressNote, client}) {
                         <Label>Service Provided: </Label>
                         <Input required name="service_provided" onChange={onFormChange}></Input>
                         <Label>Contact Type:</Label>
+                        <br/>
                         <Select required  name="contact_type"  onChange={onFormChange}>
                         <option value="">Select One</option>
                             <option value="In Person">In Person</option>
@@ -131,6 +132,7 @@ function ProgressNoteForm({onCloseForm, onNewProgressNote, client}) {
                         <Label>Service Code: </Label>
                         <Input placeholder="If Applicable" name="code_of_service" onChange={onFormChange}></Input>
                         <Label>Location:</Label>
+                        <br/>
                         <Select required  name="location"  onChange={onFormChange}>
                         <option value="">Select One</option>
                             <option value="Home">Home</option>

@@ -16,7 +16,7 @@ const Card = styled.li`
   min-height: 15rem;
   overflow: clip;
   list-style-type: none;
-  margin-left: 10px;
+  margin: 1rem;
   padding: 10px 0;
 `;
 

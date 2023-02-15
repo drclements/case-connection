@@ -13,7 +13,8 @@ const Profile = styled.div`
     border-radius: 15px;
 `
 const ButtonDiv = styled.div`
-    margin: 0 5rem;
+    margin: 0 8rem;
+    justify-content: space-around
 `
 
 const CardDetails = styled.div`
@@ -185,7 +186,7 @@ const ClientDetails = ({clients}) => {
             )}
             </DetailBoxBottom>
         </DemographicContainer>
-        <ButtonDiv className=' center'>
+        <ButtonDiv className='flex center'>
             {demoUpdate === false ? <Button onClick={updateClick}>Update Client Information</Button> : <Button onClick={updateClick}>Close Form</Button> }
             
                 {imgArr.length === 0 ? (
@@ -194,7 +195,7 @@ const ClientDetails = ({clients}) => {
                     ) : (
                     <>
                     <form onSubmit={handlePictureSubmit}>
-                        <Input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></Input>
+                        <input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></input>
                         <input type="submit"></input>
                     </form>
                     <Button onClick={handleAddPictureClick}>Close</Button>
@@ -207,7 +208,7 @@ const ClientDetails = ({clients}) => {
                         <>
                         <form
                         onSubmit={handleUpdatePictureSubmit}>
-                            <Input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></Input>
+                            <input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></input>
                             <input type="submit"></input>
                         </form>
                         <Button onClick={handleUpdatePictureClick}>Close</Button>

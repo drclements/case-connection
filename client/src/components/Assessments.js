@@ -76,7 +76,7 @@ function Assessments(){
     }
 
     function setUpdateSa(newSa) {
-        setPocs([...sas, newSa])
+        setSas([...sas, newSa])
     }
 
     let clientId = parseInt(id)

@@ -5,7 +5,7 @@ import { Button } from "../styled-components/Buttons";
 import { Label } from "../styled-components/Label";
 
 const WelcomeTitle = styled.h2`
-margin: 2rem 5rem
+margin: 2rem 6rem
 `
 
 const Input = styled.input`
@@ -63,7 +63,7 @@ function FundingForm() {
     return(
         <div>
             <WelcomeTitle>Add New Funding Pool</WelcomeTitle>
-            <div style={{margin:"0 5rem"}}>
+            <div style={{margin:"0 6rem"}}>
                 <form onSubmit={handleSubmit}>
                     <Label>Name: </Label>
                     <Input name="name" onChange={onFormChange}></Input>

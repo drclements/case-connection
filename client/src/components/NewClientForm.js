@@ -4,7 +4,14 @@ import { FormContainer } from "../styled-components/Forms";
 import { Input, Select } from "../styled-components/input";
 import { Label } from "../styled-components/Label";
 import { Button } from "../styled-components/Buttons";
+import styled from "styled-components";
 
+
+const Divider = styled.hr`
+    border: none;
+    border-bottom: 3px solid white ;
+    margin: 16px 0;
+`;
 
 function NewClientForm() {
     const history = useHistory();
@@ -48,9 +55,9 @@ function NewClientForm() {
 
     return (
         <div>
-            <h2 style={{margin: "1rem 4em"}}>Enroll New Mentee</h2>
+            <h2 style={{margin: "2rem 5em"}}>Enroll New Mentee</h2>
             <FormContainer>
-                <div style={{backgroundColor: "var(--light-blue", margin: '2rem 6rem', padding: "20px", borderRadius: "10px"}}>
+                <div style={{backgroundColor: "var(--light-blue", margin: '1rem 6rem', padding: "20px", borderRadius: "10px"}}>
                 <form  onSubmit={handleSubmit}>
                     <Label>First Name:</Label>
                     <Input name="firstname" onChange={onFormChange}></Input>
@@ -71,26 +78,32 @@ function NewClientForm() {
                     <Input name="zip" onChange={onFormChange}></Input>
                     <br/>
                     <Label>County:</Label>
+                    <br/>
+                    <br/>
                     <Select  name="county"  onChange={onFormChange}>
                         <option value="Select One">Select One</option>
                         <option value="Henderson County">Henderson County</option>
                         <option value="Buncombe County">Buncombe County</option>
                         <option value="Translvania County">Translvania County</option>
                     </Select>
-
+                    <Divider />
                     <h3>Demographic</h3>
                     <Label>Age:</Label>
                     <Input type="number" name="age" min="4" max='24' onChange={onFormChange}></Input>
                     <br/>
                     <Label>Gender:</Label>
+                    <br/>
+                    <br/>
                     <Select  name="gender" onChange={onFormChange}>
                         <option value="Prefer not to disclose">Prefer not to disclose</option>
                         <option value="Female">Female</option>
                         <option value="Male">Male</option>
                         <option value="Non-binary/non-conforming">Non-binary/non-conforming</option>
                     </Select>
-                    <br/>
+                    <br/><br/>
                     <Label>Race:</Label>
+                    <br/>
+                    <br/>
                     <Select  name="race" onChange={onFormChange}>
                         <option value="Prefer not to disclose">Prefer not to disclose</option>
                         <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
@@ -101,14 +114,16 @@ function NewClientForm() {
                         <option value="White">White</option>
                         <option value="Two or More Races">Two or More Races</option>
                     </Select>
-                    <br/>
+                    <br/><br/>
                     <Label>Ethnicity:</Label>
+                    <br/>
+                    <br/>
                     <Select  name="ethnicity" onChange={onFormChange}>
                         <option value="Prefer not to disclose">Prefer not to disclose</option>
                         <option value="Hispanic or Latinx">Hispanic or Latinx</option>
                         <option value=" Not Hispanic or Latinx">Not Hispanic or Latinx</option>
                     </Select>
-                    <br />
+                    <br /><br/>
                     <Button>Create Mentee</Button>
                 </form>
                 </div> 

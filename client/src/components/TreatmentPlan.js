@@ -29,6 +29,7 @@ const CardDiv = styled.div`
     
 `
 
+
 function TreatmentPlan(){
     const { id } = useParams();
     const [client, setClient] = useState([])

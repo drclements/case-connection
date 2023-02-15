@@ -17,13 +17,7 @@ const Card = styled.li`
   margin-left: 10px
 `;
 
-const Image = styled.img`
-  width: 200x;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 50%;
-  
-`;
+
 
 function FundingCard ({ funding }) {
     const {name, county, funding_type, year, amount} = funding

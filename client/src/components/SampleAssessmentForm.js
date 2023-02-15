@@ -89,7 +89,8 @@ function SampleAssessmentForm({onCloseForm, onNewSa, client}) {
             body: JSON.stringify(formData)
         }).then((r) => r.json())
         .then((data) => {
-            console.log(data)
+            onNewSa(data)
+            onCloseForm()
         })
         e.target.reset()
     }

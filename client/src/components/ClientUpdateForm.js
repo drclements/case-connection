@@ -60,17 +60,19 @@ const ClientUpdateForm = ({client, setClient, setDemoUpdate, demoUpdate}) => {
         <form onSubmit={handleProfileUpdate}>
                 <Label style={{fontSize: "20px"}}><strong>Update Profile Information</strong></Label>
                 <br/>
-                <div style={{margin: ".5rem"}} className='flex'>
+                <br/>
                     <Label style={{margin: ".5rem"}} >Case Status: </Label>
-                    <Select required onChange={onFormChange} defaultValue={isActive} name="isActive">
+                    <br/>
+                    <br/>
+                    <Select className='center' required onChange={onFormChange} defaultValue={isActive} name="isActive">
                         <option value="false">Inactive</option>
                         <option value="true">Active</option>
                     </Select>
+                <div style={{margin: ".5rem"}} className='flex'>
                     <Label style={{margin: ".5rem"}}>Case Worker ID: </Label>
                     <Input required type="number" defaultValue={case_manager_id} name="case_manager_id" onChange={onFormChange} />
                     <Label style={{margin: ".5rem"}}>Funding ID: </Label>
                     <Input required type="number" defaultValue={funding_id} name="funding_id" onChange={onFormChange} />
-                    <br/>
                 </div>
                 <Label>First Name:</Label>
                 <Input required defaultValue={firstname} name="firstname" onChange={onFormChange} />
@@ -81,14 +83,18 @@ const ClientUpdateForm = ({client, setClient, setDemoUpdate, demoUpdate}) => {
                 <Input required type="number" defaultValue={age} name="age" onChange={onFormChange} />
                 <br/>
                 <Label>Gender: </Label>
+                <br/>
+                <br/>
                 <Select required defaultValue={gender} name="gender" onChange={onFormChange}>
                     <option value="Prefer not to disclose">Prefer not to disclose</option>
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
                     <option value="Non-binary/non-conforming">Non-binary/non-conforming</option>
                 </Select>
-                <br/>
+                <br/><br/>
                 <Label>Race: </Label>
+                <br/>
+                <br/>
                 <Select required defaultValue={race}  name="race" onChange={onFormChange}>
                     <option value="Prefer not to disclose">Prefer not to disclose</option>
                     <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
@@ -100,12 +106,16 @@ const ClientUpdateForm = ({client, setClient, setDemoUpdate, demoUpdate}) => {
                     <option value="Two or More Races">Two or More Races</option>
                 </Select>
                 <br/>
+                <br/>
                 <Label>Ethnicity: </Label>
+                <br/>
+                <br/>
                 <Select required defaultValue={ethnicity}  name="ethnicity" onChange={onFormChange}>
                     <option value="Prefer not to disclose">Prefer not to disclose</option>
                     <option value="Hispanic or Latinx">Hispanic or Latinx</option>
                     <option value=" Not Hispanic or Latinx">Not Hispanic or Latinx</option>
                 </Select>
+                <br/>
                 <br/>
                 <Label>Street: </Label>
                 <Input required defaultValue={street_address} name="street_address" onChange={onFormChange} />
@@ -118,6 +128,8 @@ const ClientUpdateForm = ({client, setClient, setDemoUpdate, demoUpdate}) => {
                 <Label>Zip Code: </Label>
                 <Input required defaultValue={zip} name="zip" onChange={onFormChange} />
                 <Label>County:</Label>
+                <br/>
+                <br/>
                 <Select  name="county"  onChange={onFormChange}>
                     <option value="Select One">Select One</option>
                     <option value="Henderson County">Henderson County</option>
