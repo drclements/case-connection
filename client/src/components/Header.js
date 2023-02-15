@@ -59,7 +59,7 @@ function Header( {currentUser, users}) {
           {!currentUser ? '' :
           <>
           <p className="font-sort-mill-goudy">{currentUser.firstname}  {currentUser.lastname}</p>
-          <p className="font-sort-mill-goudy">Case Manager</p>
+          <p className="font-sort-mill-goudy">{currentUser.title}</p>
           </>}
         </Username>
       </ProfileCard>
