@@ -1,4 +1,6 @@
 class SampleAssessmentsController < ApplicationController
+    before_action :authorize
+    
     def index 
         render json: SampleAssessment.all
     end

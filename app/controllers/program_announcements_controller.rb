@@ -1,4 +1,6 @@
 class ProgramAnnouncementsController < ApplicationController
+    before_action :authorize
+
     def index 
         render json: ProgramAnnouncement.all
     end

@@ -1,24 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Button } from '../styled-components/Buttons'
+import styled from 'styled-components'
+
+const LoadingMessage = styled.h3`
+    text-align: center;
+    margin-top: 3rem
+`
 
 const ProgressNoteView = () => {
     const params = useParams()
     const history = useHistory()
     const {id} = params
+    const [isLoading, setIsLoading] = useState(false)
     const [progressNote, setProgressNote] = useState([])
     const { firstname, lastname, date_of_service, service_provided, location, chart_id, code_of_service, date_of_note, contact_type, service_time, travel_time, documentation_time, total_time, treatment_goals, session_focus, interventions, client_response, plan, staff_name, created_at } = progressNote
 
     useEffect(() => {
+        setIsLoading(true)
         fetch(`/progress_notes/${id}`)
         .then(res => res.json())
-        .then(data => setProgressNote(data))
+        .then(data => {
+            setProgressNote(data)
+            setIsLoading(false)
+        })
     }, [])
 
 
   return (
     <div style={{margin: "4rem"}}>
         <Button onClick={() =>history.goBack()}>Back</Button>
+        {isLoading === true ? (
+          <LoadingMessage><strong>Loading...</strong></LoadingMessage>
+        ) : ( 
+
         <div>
         <h4><strong>Date of Service: </strong>{date_of_service}</h4>
         <h4>{`${firstname} ${lastname}`}</h4>
@@ -61,6 +76,7 @@ const ProgressNoteView = () => {
           <p><strong>Submited At:</strong> {created_at}</p>
           </div>
         </div>
+        )}
     </div>
   )
 }

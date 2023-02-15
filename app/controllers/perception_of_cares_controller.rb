@@ -1,4 +1,5 @@
 class PerceptionOfCaresController < ApplicationController
+    before_action :authorize
 
     def index 
         render json: PerceptionOfCare.all

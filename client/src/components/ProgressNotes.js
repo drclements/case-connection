@@ -23,12 +23,23 @@ const CardDiv = styled.div`
     justify-content: space-evenly;
     flex-wrap: wrap;
     margin: 0 3rem
-    
+`
+const Loading = styled.div`
+    background-color: white;
+    margin: 4rem 1rem; 
+    border-radius: 10px;
+    min-width: 50%
+`
+
+const LoadingMessage = styled.h3`
+    text-align: center;
+    margin-top: 3rem
 `
 
 function ProgressNotes(){
     const { id } = useParams();
     const [client, setClient] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const [progressNotes, setProgressNotes] = useState([])
     const [progressNoteMenu, setProgressNoteMenu] = useState(false)
     const {firstname, lastname, county, isActive, case_manager, funding} = client
@@ -37,6 +48,7 @@ function ProgressNotes(){
     
   
     useEffect(() => {
+        setIsLoading(true)
         Promise.all([
             fetch(`/clients/${id}`),
             fetch('/progress_notes'),
@@ -47,6 +59,7 @@ function ProgressNotes(){
         .then(([dataClient, dataProgressNotes]) => {
             setClient(dataClient);
             setProgressNotes(dataProgressNotes)
+            setIsLoading(false)
         })
     }, [])
 
@@ -74,35 +87,43 @@ function ProgressNotes(){
             <div style={{margin: "2rem 2rem 2rem 4rem"}}>
                 <ClientPhoto />
             </div>
+            {isLoading === true ? (
+                <Loading >
+                    <LoadingMessage><strong>Loading...</strong></LoadingMessage>
+                </Loading>
+            ) : (
+            <>
             <CardDetails>
                 <div style={{margin:"1rem 7rem 0 2rem"}}>
-                    <h2 className="no-margin font-sort-mill-goudy">{`${firstname} ${lastname}`}</h2>
-                    <p className="no-margin font-sort-mill-goudy"><strong>County: </strong>{county}</p>
-                    <p className="no-margin font-sort-mill-goudy"><strong>Mentee ID: </strong>{client.id}</p>
+                <h2 className="no-margin font-sort-mill-goudy">{`${firstname} ${lastname}`}</h2>
+                <p className="no-margin font-sort-mill-goudy"><strong>County: </strong>{county}</p>
+                <p className="no-margin font-sort-mill-goudy"><strong>Mentee ID: </strong>{client.id}</p>
                 </div>
-            </CardDetails>
-            <CardDetails>
-                <div style={{margin:"1rem 7rem 1rem 2rem"}}>
-                    <label className="font-sort-mill-goudy" style={{fontSize:"22px"}}><strong>Case Status</strong></label>
-                    <br/>
-                        {case_manager === null || case_manager === undefined ? <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Assign Case Worker</p> : <p className="no-margin font-sort-mill-goudy"><strong>Case Worker: </strong>{case_manager.firstname} {case_manager.lastname}</p>}
-                        {funding === null || funding === undefined ? (
-                            <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Unfunded</p>
-                        ) : (
-                        <p className="no-margin font-sort-mill-goudy"><strong>Funding: </strong>{` ${funding.name}`}</p>
-                        )
-                        }
-                    {isActive === true? (
-                        <p className="no-margin font-sort-mill-goudy">
-                        <strong>Status:</strong> Active
-                        </p>  
-                        ) : (
+                </CardDetails>
+                <CardDetails>
+                    <div style={{margin:"1rem 7rem 1rem 2rem"}}>
+                        <label className="font-sort-mill-goudy" style={{fontSize:"22px"}}><strong>Case Status</strong></label>
+                        <br/>
+                            {case_manager === null || case_manager === undefined ? <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Assign Case Worker</p> : <p className="no-margin font-sort-mill-goudy"><strong>Case Worker: </strong>{case_manager.firstname} {case_manager.lastname}</p>}
+                            {funding === null || funding === undefined ? (
+                                <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Unfunded</p>
+                            ) : (
+                            <p className="no-margin font-sort-mill-goudy"><strong>Funding: </strong>{` ${funding.name}`}</p>
+                            )
+                            }
+                        {isActive === true? (
                             <p className="no-margin font-sort-mill-goudy">
-                        <strong>Status:</strong> Inactive
-                        </p> 
-                        )}
-                </div>
-            </CardDetails>
+                            <strong>Status:</strong> Active
+                            </p>  
+                            ) : (
+                                <p className="no-margin font-sort-mill-goudy">
+                            <strong>Status:</strong> Inactive
+                            </p> 
+                            )}
+                    </div>
+                </CardDetails>
+                </>
+            )}
             </Profile>
             <div >
                 <div style={{margin:"0 5rem"}}>
