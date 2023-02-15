@@ -11,9 +11,6 @@ const Profile = styled.div`
     margin: 2rem 5rem;
     border-radius: 15px;
 `
-const ButtonDiv = styled.div`
-    margin: 0 5rem;
-`
 
 const CardDetails = styled.div`
     background-color: white;

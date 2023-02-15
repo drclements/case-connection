@@ -34,8 +34,7 @@ function PerceptionOfCaretCard ({ poc }) {
             <Card  >
                 <div  className="center" >
                     <h3>Perception of Care</h3>
-                    <h4>{date}</h4>
-                    
+                    <h4>{date}</h4>  
                 </div>
                 {expandA === false ? (
                     <div className="center">
@@ -48,7 +47,7 @@ function PerceptionOfCaretCard ({ poc }) {
                         <Button  onClick={handleExpandA}>Close Details</Button>
                     </div>
                     <div>
-                        <div style={{marginLeft: "5rem"}}>
+                        <div style={{ margin: "0 5rem 1rem", backgroundColor: "white", borderRadius:'10px', padding:'10px'}}>
                             <h4>{`${firstname} ${lastname}`}</h4>
                         </div>
                         

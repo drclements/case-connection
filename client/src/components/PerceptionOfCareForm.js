@@ -16,16 +16,6 @@ const Input = styled.input`
   margin: 20px 0;
 `;
 
-const Select = styled.select `
-border-radius: 6px;
-  border: 1px solid transparent;
-  border-color: #dbdbdb;
-  font-size: 1rem;
-  line-height: 1.5;
-  padding: 7px;
-
-`
-
 const TopInputs = styled.div`
     justify-content: space-around; 
     background-color: var(--light-grey); 
@@ -34,11 +24,6 @@ const TopInputs = styled.div`
     margin: 2rem 4rem
 `
 
-const FormContainer = styled.div`
-  border-radius: 10px;
-  padding-top: 1rem;
-  
-`;
 
 const Li = styled.li`
     margin: 1rem 4rem;

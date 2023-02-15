@@ -1,13 +1,15 @@
 import styled from "styled-components"
 import { useHistory } from 'react-router-dom';
 import {useState} from 'react'
+import { Button } from "../styled-components/Buttons";
+import { Label } from "../styled-components/Label";
 
 
 const Card = styled.li`
   border: 1px solid;
   flex-wrap: wrap;
   border-radius: 10px;
-  background-color: var(--white);
+  background-color: var(--light-blue);
   box-shadow: 0px 0px 2px 2px;
   max-height: 100rem;
   min-height: 15rem;
@@ -15,6 +17,10 @@ const Card = styled.li`
   list-style-type: none;
   margin-left: 10px
 `;
+
+const Li = styled.li`
+    margin-left: 5rem
+`
 
 function SampleAssessmentCard ({ sa }) {
     const {sa_one, sa_two, sa_three, sa_four, sa_five, sa_total, date, firstname, lastname} = sa
@@ -24,22 +30,29 @@ function SampleAssessmentCard ({ sa }) {
     }
     
     return (
-        <div className="flex column">
+        <div style={{margin: "2rem 0"}} className="flex column">
             <Card >
-                <div  >
+                <div className="center" >
                     <h3>Sample Assessment</h3>
                     <h4>{date}</h4> 
                 </div>
                 {expandA === false ? (
-                    <button onClick={handleExpandA}>View Assessment</button>
+                    <div className="center">
+                        <Button className="center" onClick={handleExpandA}>View Assessment</Button>
+                    </div>
+                    
                 ) : (
-                <>
-                    <button onClick={handleExpandA}>Close Details</button>
-                        <h4>{`${firstname} ${lastname}`}</h4>
-                        <h4>Within the last 7 days:</h4>
-                        <ol>
-                            <li>
-                            <label>I feel anxious or nervous.</label>
+                <div >
+                    <div className="center">
+                        <Button  onClick={handleExpandA}>Close Details</Button>
+                    </div>
+                    <div style={{ margin: "0 5rem 1rem", backgroundColor: "white", borderRadius:'10px', padding:'10px'}}>
+                            <h4 style={{marginLeft: "3rem"}} >{`${firstname} ${lastname}`}</h4>
+                    </div>
+                            <h4 style={{marginLeft: "5rem"}}>Within the last 7 days:</h4>
+                        <ol style={{margin: "0 5rem", backgroundColor: "white", borderRadius:'10px', padding:'10px'}}>
+                            <Li>
+                            <Label>I feel anxious or nervous.</Label>
                                 <p>{sa_one === 4 && (
                                     "Always")}
                                     {sa_one === 3 && (
@@ -51,9 +64,9 @@ function SampleAssessmentCard ({ sa }) {
                                     {sa_one === 0 && (
                                     "Never")}
                                 </p>
-                            </li>
-                            <li>
-                            <label>I am sad or unhappy.</label>
+                            </Li>
+                            <Li>
+                            <Label>I am sad or unhappy.</Label>
                             <p>{sa_two === 4 && (
                                     "Always")}
                                     {sa_two === 3 && (
@@ -65,9 +78,9 @@ function SampleAssessmentCard ({ sa }) {
                                     {sa_two === 0 && (
                                     "Never")}
                                 </p>
-                            </li>
-                            <li>
-                            <label>I withdraw from my friends or family.</label>
+                            </Li>
+                            <Li>
+                            <Label>I withdraw from my friends or family.</Label>
                             <p>{sa_three === 4 && (
                                     "Always")}
                                     {sa_three === 3 && (
@@ -79,9 +92,9 @@ function SampleAssessmentCard ({ sa }) {
                                     {sa_three === 0 && (
                                     "Never")}
                                 </p>
-                            </li>
-                            <li>
-                            <label>I don't have much energy.</label>
+                            </Li>
+                            <Li>
+                            <Label>I don't have much energy.</Label>
                             <p>{sa_four === 4 && (
                                     "Always")}
                                     {sa_four === 3 && (
@@ -93,9 +106,9 @@ function SampleAssessmentCard ({ sa }) {
                                     {sa_four === 0 && (
                                     "Never")}
                                 </p>
-                            </li>
-                            <li>
-                            <label>I am hopeful</label>
+                            </Li>
+                            <Li>
+                            <Label>I am hopeful</Label>
                             <p>{sa_five === 2 && (
                                     "Always")}
                                     {sa_five === 1 && (
@@ -107,10 +120,13 @@ function SampleAssessmentCard ({ sa }) {
                                     {sa_five === -2 && (
                                     "Never")}
                                 </p>
-                            </li>
+                            </Li>
                         </ol>
-                        <h3>{`Total Distress Level: ${sa_total} / 18 `}</h3>
-                </>
+                        <div style={{margin:"1rem 5rem", backgroundColor:"white", padding:"10px", borderRadius:"10px"}}>
+                            <h3 style={{marginLeft: "3rem"}}>{`Total Distress Level: ${sa_total} / 18 `}</h3>
+                        </div>
+                        
+                </div>
                 )}
             </Card>
         </div>
