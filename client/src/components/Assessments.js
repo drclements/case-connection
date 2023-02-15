@@ -25,13 +25,6 @@ const CardDetails = styled.div`
     overflow: clip;  
 `
 
-const CardDiv = styled.div`
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    margin: 0 3rem
-    
-`
-
 function Assessments(){
     const { id } = useParams();
     const [client, setClient] = useState([])
@@ -83,7 +76,7 @@ function Assessments(){
     }
 
     function setUpdateSa(newSa) {
-        setPocs([...sas, newSa])
+        setSas([...sas, newSa])
     }
 
     let clientId = parseInt(id)
@@ -176,7 +169,7 @@ function Assessments(){
                     ) : (
                         <>
                             <Button onClick={handleCreateSaClick} >Close Form</Button>
-                            <SampleAssessmentForm onNewSa={setUpdateSa} onCloseForm={handleCreateSaClick} />
+                            <SampleAssessmentForm client={client} onNewSa={setUpdateSa} onCloseForm={handleCreateSaClick} />
                         </>
                         )}
                         

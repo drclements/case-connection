@@ -1,5 +1,24 @@
 import React, { useState, } from 'react'
 import { useHistory } from 'react-router-dom'
+import styled from 'styled-components';
+import { Button } from '../styled-components/Buttons';
+import { Label } from '../styled-components/Label';
+
+const WelcomeTitle = styled.h2`
+margin: 1rem 5rem
+`
+
+const Input = styled.input`
+  border-radius: 6px;
+  border: 1px solid transparent;
+  border-color: #dbdbdb;
+  -webkit-appearance: none;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 4px;
+  margin: 20px 0;
+`;
+
 
 const ProfileUpdateForm = ({currentUser, setCurrentUser}) => {
 
@@ -40,22 +59,25 @@ const ProfileUpdateForm = ({currentUser, setCurrentUser}) => {
     return (
     <div>
         <form onSubmit={handleProfileUpdate}>
-                <label><strong>Update Profile Information</strong></label>
-                <br/>
-                <label>Phone Number: </label>
-                <input required defaultValue={phone}  name="phone" onChange={onFormChange} />
-                <br/>
-                <label>Street: </label>
-                <input required defaultValue={street_address} name="street_address" onChange={onFormChange} />
-                <br/>
-                <label>City: </label>
-                <input required defaultValue={city} name="city" onChange={onFormChange} />
-                <br/>
-                <label>State: </label>
-                <input required defaultValue={state} name="state" onChange={onFormChange} />
-                <label>Zip Code: </label>
-                <input required defaultValue={zip} name="zip" onChange={onFormChange} />
-                <button type="submit">Update</button>
+                <WelcomeTitle><strong>Update Profile Information</strong></WelcomeTitle>
+                <div style={{margin:"0 5rem"}}>
+                    <Label>Phone Number: </Label>
+                    <Input required defaultValue={phone}  name="phone" onChange={onFormChange} />
+                    <br/>
+                    <Label>Street: </Label>
+                    <Input required defaultValue={street_address} name="street_address" onChange={onFormChange} />
+                    <br/>
+                    <Label>City: </Label>
+                    <Input required defaultValue={city} name="city" onChange={onFormChange} />
+                    <br/>
+                    <Label>State: </Label>
+                    <Input required defaultValue={state} name="state" onChange={onFormChange} />
+                    <br/>
+                    <Label>Zip Code: </Label>
+                    <Input required defaultValue={zip} name="zip" onChange={onFormChange} />
+                    <br/>
+                    <Button type="submit">Update</Button>
+                </div>
             </form>
     </div>
   )

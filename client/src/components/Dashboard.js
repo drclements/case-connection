@@ -5,7 +5,7 @@ import ProgramAnnouncements from "./ProgramAnnouncements";
 
 
 const PageFrame = styled.div`
-    margin: 2rem 4rem;
+    margin: 2rem 5rem;
 `
 const WelcomeTitle = styled.h2`
 `

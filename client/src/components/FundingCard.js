@@ -8,7 +8,7 @@ const Card = styled.li`
   min-width: 25%;
   flex-wrap: wrap;
   border-radius: 10px;
-  background-color: var(--white);
+  background-color: var(--light-blue);
   box-shadow: 0px 0px 2px 2px;
   max-height: 100rem;
   min-height: 15rem;
@@ -17,13 +17,7 @@ const Card = styled.li`
   margin-left: 10px
 `;
 
-const Image = styled.img`
-  width: 200x;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 50%;
-  
-`;
+
 
 function FundingCard ({ funding }) {
     const {name, county, funding_type, year, amount} = funding
@@ -32,7 +26,7 @@ function FundingCard ({ funding }) {
 
 
     return (
-        <Card className="center">
+        <Card style={{margin:"1rem"}} className="center">
             <h3>{name}</h3>
             <p>{year}</p>
             <p>{funding_type}</p>

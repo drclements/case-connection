@@ -1,4 +1,6 @@
 class FundingsController < ApplicationController
+    # before_action :authorize
+
     def index 
         render json: Funding.all
     end

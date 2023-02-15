@@ -1,4 +1,6 @@
 class TreatmentPlansController < ApplicationController
+    before_action :authorize
+    
     def index 
         render json: TreatmentPlan.all
     end

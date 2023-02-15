@@ -18,7 +18,7 @@ padding: 5px;
 `
 
 
-function SideBar({onLogout}) {
+function SideBar({onLogout, currentUser}) {
 
     return(
         <Menu>
@@ -28,21 +28,17 @@ function SideBar({onLogout}) {
             <a className="menu-item" href="/caseload">
                 My Caseload
             </a>
-            <a className="menu-item" href="/new-client">
+            {currentUser.title === "Manager" ?  <a className="menu-item" href="/new-client">
                 New Mentee Intake
-            </a>
-            <a className="menu-item" href="/funding">
+            </a> : null}
+           
+            {currentUser.title === "Manager" ? <a className="menu-item" href="/funding">
                 Funding 
-            </a>
-            <a className="menu-item" href="/create-announcement">
+            </a> : null}
+            {currentUser.title === "Manager" ? <a className="menu-item" href="/create-announcement"> 
                 Program Announcement
-            </a>
-            {/* <a className="menu-item" href="/training">
-                Training
-            </a>
-            <a className="menu-item" href="/resources">
-                Resources
-            </a> */}
+            </a> : null}
+            
             <a className="menu-item" href="/profile">
                 Profile
             </a>

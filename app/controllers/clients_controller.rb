@@ -1,4 +1,5 @@
 class ClientsController < ApplicationController
+    before_action :authorize
 
     def index 
         render json: Client.all, each_serializer: ClientWithImageSerializer

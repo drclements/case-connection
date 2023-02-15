@@ -1,4 +1,6 @@
 class ProgressNotesController < ApplicationController
+    before_action :authorize
+
     def index 
         render json: ProgressNote.all
     end

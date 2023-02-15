@@ -13,7 +13,8 @@ const Profile = styled.div`
     border-radius: 15px;
 `
 const ButtonDiv = styled.div`
-    margin: 0 5rem;
+    margin: 0 8rem;
+    justify-content: space-around
 `
 
 const CardDetails = styled.div`
@@ -47,6 +48,18 @@ const DetailBoxBottom = styled.div`
     margin: 1rem 4rem
 `
 
+const Loading = styled.div`
+    background-color: white;
+    margin: 4rem 1rem; 
+    border-radius: 10px;
+    min-width: 50%
+`
+
+const LoadingMessage = styled.h3`
+    text-align: center;
+    margin-top: 3rem
+`
+
 const ClientDetails = ({clients}) => {
     const history = useHistory()
     const { id } = useParams();
@@ -55,14 +68,19 @@ const ClientDetails = ({clients}) => {
     const [demoUpdate, setDemoUpdate] = useState(false)
     const [imageData, setImageData] = useState(null)
     const [client, setClient] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
  
 
     const {firstname, lastname, image, county, isActive, funding_id, age, gender, race, ethnicity, street_address, city, state, zip, case_manager, funding} = client
 
     useEffect(() => {
+        setIsLoading(true)
         fetch(`/clients/${id}`)
         .then(res => res.json())
-        .then(clientData => setClient(clientData))
+        .then(clientData => {
+            setClient(clientData)
+            setIsLoading(false)
+        })
     }, [])
 
 
@@ -119,37 +137,52 @@ const ClientDetails = ({clients}) => {
             <div style={{margin: "2rem 2rem 2rem 4rem"}}>
                 <ClientPhoto />
             </div>
+
+            {isLoading === true ? (
+                <Loading >
+                    <LoadingMessage><strong>Loading...</strong></LoadingMessage>
+                </Loading> 
+            ) : (
+            <>
             <CardDetails>
                 <div style={{margin:"1rem 7rem 0 2rem"}}>
-                    <h2 className="no-margin font-sort-mill-goudy">{`${firstname} ${lastname}`}</h2>
-                    <p className="no-margin font-sort-mill-goudy"><strong>County: </strong>{county}</p>
-                    <p className="no-margin font-sort-mill-goudy"><strong>Mentee ID: </strong>{client.id}</p>
+                <h2 className="no-margin font-sort-mill-goudy">{`${firstname} ${lastname}`}</h2>
+                <p className="no-margin font-sort-mill-goudy"><strong>County: </strong>{county}</p>
+                <p className="no-margin font-sort-mill-goudy"><strong>Mentee ID: </strong>{client.id}</p>
                 </div>
-            </CardDetails>
-            <CardDetails>
-                <div style={{margin:"1rem 7rem 1rem 2rem"}}>
-                    <label className="font-sort-mill-goudy" style={{fontSize:"22px"}}><strong>Case Status</strong></label>
-                    <br/>
-                        {case_manager === null || case_manager === undefined ? <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Assign Case Worker</p> : <p className="no-margin font-sort-mill-goudy"><strong>Case Worker: </strong>{case_manager.firstname} {case_manager.lastname}</p>}
-                        {funding === null || funding === undefined ? (
-                            <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Unfunded</p>
-                        ) : (
-                        <p className="no-margin font-sort-mill-goudy"><strong>Funding: </strong>{` ${funding.name}`}</p>
-                        )
-                        }
-                    {isActive === true? (
-                        <p className="no-margin font-sort-mill-goudy">
-                        <strong>Status:</strong> Active
-                        </p>  
-                        ) : (
+                </CardDetails>
+                <CardDetails>
+                    <div style={{margin:"1rem 7rem 1rem 2rem"}}>
+                        <label className="font-sort-mill-goudy" style={{fontSize:"22px"}}><strong>Case Status</strong></label>
+                        <br/>
+                            {case_manager === null || case_manager === undefined ? <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Assign Case Worker</p> : <p className="no-margin font-sort-mill-goudy"><strong>Case Worker: </strong>{case_manager.firstname} {case_manager.lastname}</p>}
+                            {funding === null || funding === undefined ? (
+                                <p className="no-margin font-sort-mill-goudy" style={{color: "red"}}>Unfunded</p>
+                            ) : (
+                            <p className="no-margin font-sort-mill-goudy"><strong>Funding: </strong>{` ${funding.name}`}</p>
+                            )
+                            }
+                        {isActive === true? (
                             <p className="no-margin font-sort-mill-goudy">
-                        <strong>Status:</strong> Inactive
-                        </p> 
-                        )}
-                </div>
-            </CardDetails>
+                            <strong>Status:</strong> Active
+                            </p>  
+                            ) : (
+                                <p className="no-margin font-sort-mill-goudy">
+                            <strong>Status:</strong> Inactive
+                            </p> 
+                            )}
+                    </div>
+                </CardDetails>
+                </>
+            )}
         </Profile>
         <DemographicContainer>
+            {isLoading === true ? (
+                <Loading >
+                    <LoadingMessage><strong>Loading...</strong></LoadingMessage>
+                </Loading>
+            ) : (
+                <>
             <div >
                 <h3 style={{backgroundColor: "white", borderRadius: "10px", padding: "1rem", margin:"0 6rem"}} className='center no-margin'>Demographic Information</h3>
             </div>
@@ -184,8 +217,10 @@ const ClientDetails = ({clients}) => {
                 <ClientUpdateForm demoUpdate={demoUpdate} setDemoUpdate={setDemoUpdate} client={client} setClient={setClient} />
             )}
             </DetailBoxBottom>
+                </>
+            )}
         </DemographicContainer>
-        <ButtonDiv className=' center'>
+        <ButtonDiv className='flex center'>
             {demoUpdate === false ? <Button onClick={updateClick}>Update Client Information</Button> : <Button onClick={updateClick}>Close Form</Button> }
             
                 {imgArr.length === 0 ? (
@@ -194,7 +229,7 @@ const ClientDetails = ({clients}) => {
                     ) : (
                     <>
                     <form onSubmit={handlePictureSubmit}>
-                        <Input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></Input>
+                        <input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></input>
                         <input type="submit"></input>
                     </form>
                     <Button onClick={handleAddPictureClick}>Close</Button>
@@ -207,7 +242,7 @@ const ClientDetails = ({clients}) => {
                         <>
                         <form
                         onSubmit={handleUpdatePictureSubmit}>
-                            <Input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></Input>
+                            <input type="file" accept="image/*" onChange={(e) => setImageData(e.target.files[0])}></input>
                             <input type="submit"></input>
                         </form>
                         <Button onClick={handleUpdatePictureClick}>Close</Button>

@@ -41,7 +41,7 @@ const ProgramName = styled.div`
     padding: 1.25rem 2rem;
     position: absolute;
     top: 33.75rem;
-    right: 7.1rem;
+    right: 8.5rem;
 `;
 
 function Login({ onLogin }) {

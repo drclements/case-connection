@@ -6,6 +6,10 @@ class ApplicationController < ActionController::API
 
   private
 
+  def authorize
+    return render json: { errors: ['Must be logged in to access'] }, status: :unauthorized unless session.include? :case_manager_id
+  end
+
   def render_not_found
     render json: { erorrs: ['Not Found'] }, status: :not_found
   end

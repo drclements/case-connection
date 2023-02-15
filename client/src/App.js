@@ -75,7 +75,7 @@ function App() {
   return (
     <div >
       <Header isLoading={isLoading} users={users}  currentUser={currentUser}  />
-      <SideBar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} onLogout={handleLogout}  />
+      <SideBar currentUser={currentUser} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} onLogout={handleLogout}  />
       <Switch>
         <Route exact path="/"> 
           <Dashboard currentUser={currentUser} />
