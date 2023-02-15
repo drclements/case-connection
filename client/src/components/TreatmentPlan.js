@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react'
 import TreatmentPlanForm from "./TreatmentPlanForm";
 import TreatmentPlanCard from "./TreatmentPlanCard";
 import ClientPhoto from "./ClientPhoto";
+import { Button } from "../styled-components/Buttons";
 
 const Profile = styled.div`
     background-color: var(--light-blue);
@@ -23,6 +24,8 @@ const CardDetails = styled.div`
 
 const CardDiv = styled.div`
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 0 3rem
     
 `
 
@@ -31,7 +34,7 @@ function TreatmentPlan(){
     const [client, setClient] = useState([])
     const [treatmentPlans, setTreatmentPlans] = useState([])
     const [treatmentPlanMenu, setTreatmentPlanMenu] = useState(false)
-    const {firstname, lastname, image, county, isActive, funding_id, age, gender, race, ethnicity, street_address, city, state, zip, case_manager, funding} = client
+    const {firstname, lastname, county, isActive, case_manager, funding} = client
    
     
   
@@ -53,16 +56,21 @@ function TreatmentPlan(){
         setTreatmentPlanMenu(!treatmentPlanMenu)
     }
 
+    function updateTPList(updatedData) {
+        setTreatmentPlans([...treatmentPlans, updatedData]);
+    }
+
     let clientId = parseInt(id)
-  
+
     const findClientTreatmentPlans = treatmentPlans.filter(treatmentPlan => (treatmentPlan.client_id === clientId))
 
     const displayTreatmentPlans = findClientTreatmentPlans.map(treatmentPlan => 
-       <TreatmentPlanCard key={treatmentPlan.id} treatmentPlan={treatmentPlan} />
+        <TreatmentPlanCard key={treatmentPlan.id} treatmentPlan={treatmentPlan} />
         )
     
-    return(
-        <div className="">
+        return(
+            <div >
+            <h2 style={{margin: "2rem 5rem"}}>Mentee Treatment Plan</h2>
             <Profile className="flex">
             <div style={{margin: "2rem 2rem 2rem 4rem"}}>
                 <ClientPhoto />
@@ -96,22 +104,22 @@ function TreatmentPlan(){
                         )}
                 </div>
             </CardDetails>
-        </Profile>
-                <section style={{marginLeft:"20px"}}>
-                    <h2>Mentee Treatment Plan</h2>
-                    
-                        {treatmentPlanMenu === false ? (
-                            <button onClick={handleCreateTreatmentPlanClick} >Create New Treatment Plan</button>
-                        ) : (
-                            <>
-                            <button onClick={handleCreateTreatmentPlanClick} >Close Form</button>
-                            <TreatmentPlanForm onCloseForm={handleCreateTreatmentPlanClick} />
-                            </>
-                        )}
-                    <CardDiv className="flex">
-                        { displayTreatmentPlans }
-                    </CardDiv>
-                </section>
+            </Profile>
+            <div >
+                <div style={{margin:"0 5rem"}} >
+                    {treatmentPlanMenu === false ? (
+                        <Button onClick={handleCreateTreatmentPlanClick} >Create New Treatment Plan</Button>
+                    ) : (
+                        <>
+                        <Button onClick={handleCreateTreatmentPlanClick} >Close Form</Button>
+                        <TreatmentPlanForm onUpdateTP={updateTPList} client={client} onCloseForm={handleCreateTreatmentPlanClick} />
+                        </>
+                    )}
+                </div>
+                <CardDiv className="flex">
+                    { displayTreatmentPlans }
+                </CardDiv>
+            </div>
                 
         </div>
     )

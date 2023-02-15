@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Button } from './styled-components/Buttons'
+import { Button } from '../styled-components/Buttons'
 
 const TreatmentPlanView = () => {
     const params = useParams()

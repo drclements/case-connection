@@ -1,23 +1,26 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Button } from "../styled-components/Buttons";
+import { FormContainer } from "../styled-components/Forms";
+import { Input, Select } from "../styled-components/input";
+import { Label } from "../styled-components/Label";
+import { Textbox } from "../styled-components/Textbox";
 
-function TreatmentPlanForm({onCloseForm}) {
-  const history = useHistory()
+function TreatmentPlanForm({onCloseForm, client, onUpdateTP}) {
+    const {firstname, lastname, id} = client
     const [formData, setFormData] = useState({
-        firstname: "",
-        lastname: "",
+        firstname: firstname,
+        lastname: lastname,
         date: "",
         goals: "",
         specific_objective: "",
         interventions: "",
         strengths: "",
         barriers: "",
-        client_id: "",
+        client_id: id,
         case_manager: "",
         date_of_completion: "",  
     })
- 
-
 
     function onFormChange(e) {
         setFormData({
@@ -34,8 +37,9 @@ function TreatmentPlanForm({onCloseForm}) {
             }, 
             body: JSON.stringify(formData)
         }).then((r) => r.json())
-        .then(() => {
-            history.push('')
+        .then((data) => {
+            onUpdateTP(data)
+            onCloseForm()
         })
         e.target.reset()
     }
@@ -49,46 +53,51 @@ function TreatmentPlanForm({onCloseForm}) {
 
     return (
         <div>
-            <h2>Treatment Plan Form</h2>
-            <form onSubmit={handleSubmit}>
-                <label>Date:</label>
-                <input name="date" type="date" onChange={onFormChange}></input>
-                <label>Client ID:</label>
-                <input name="client_id" min="0" type="number" onChange={onFormChange}></input>
-                <br/>
-                <label>First Name:</label>
-                <input name="firstname" onChange={onFormChange}></input>
-                <label>Last Name:</label>
-                <input name="lastname" onChange={onFormChange}></input>
-                <br/>
-                <label>Strengths:</label>
-                <br/>
-                <textarea type="text" name="strengths" onChange={onFormChange}></textarea>
-                <br/>
-                <label>Barriers:</label>
-                <br/>
-                <textarea type="text" name="barriers" onChange={onFormChange}></textarea>
-                <br/>
-                <label>Goals:</label>
-                <br/>
-                <textarea type="text" name="goals" onChange={onFormChange}></textarea>
-                <br/>
-                <label>Specific Objectives:</label>
-                <br/>
-                <textarea type="text" name="specific_objective" onChange={onFormChange}></textarea>
-                <br/>
-                <label>Interventions:</label>
-                <br/>
-                <textarea type="text" name="interventions" onChange={onFormChange}></textarea>
-                <br/>
-                <h3>Staff Completing Form</h3>
-                <label>Name & Credential:</label>
-                <input name="case_manager" onChange={onFormChange}></input>
-                <label>Today's Date:</label>
-                <input name="date_of_completion" type="date" onChange={onFormChange}></input>
-                <br/>
-                <button >Create Treatment Plan</button>
-            </form>
+            <FormContainer style={{backgroundColor: "var(--light-blue)"}}>
+                <h2 className="center">Treatment Plan Form</h2>
+                <div style={{margin:"2rem 2rem"}}>
+                    <form onSubmit={handleSubmit}>
+                        <Label>Date:</Label>
+                        <Input required name="date" type="date" onChange={onFormChange}></Input>
+                        <Label>Client ID:</Label>
+                        <Input required defaultValue={client.id} readOnly name="client_id" min="0" type="number" onChange={onFormChange}></Input>
+                        <br/>
+                        <Label>First Name:</Label>
+                        <Input required readOnly defaultValue={client.firstname}  name="firstname" onChange={onFormChange}></Input>
+                        <br/>
+                        <Label>Last Name:</Label>
+                        <Input required readOnly defaultValue={client.lastname}  name="lastname" onChange={onFormChange}></Input>
+                        <br/>
+                        <Label>Strengths:</Label>
+                        <br/>
+                        <Textbox required cols={100} type="text" name="strengths" onChange={onFormChange}></Textbox>
+                        <br/>
+                        <Label>Barriers:</Label>
+                        <br/>
+                        <Textbox required cols={100} type="text" name="barriers" onChange={onFormChange}></Textbox>
+                        <br/>
+                        <Label>Goals:</Label>
+                        <br/>
+                        <Textbox required cols={100} type="text" name="goals" onChange={onFormChange}></Textbox>
+                        <br/>
+                        <Label>Specific Objectives:</Label>
+                        <br/>
+                        <Textbox required cols={100} type="text" name="specific_objective" onChange={onFormChange}></Textbox>
+                        <br/>
+                        <Label>Interventions:</Label>
+                        <br/>
+                        <Textbox required cols={100} type="text" name="interventions" onChange={onFormChange}></Textbox>
+                        <br/>
+                        <h3>Staff Completing Form</h3>
+                        <Label>Name & Credential:</Label>
+                        <Input required name="case_manager" onChange={onFormChange}></Input>
+                        <Label>Today's Date:</Label>
+                        <Input required name="date_of_completion" type="date" onChange={onFormChange}></Input>
+                        <br/>
+                        <Button >Create Treatment Plan</Button>
+                    </form>
+                </div>
+            </FormContainer>
         </div>
     )
 

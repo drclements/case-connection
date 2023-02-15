@@ -17,7 +17,8 @@ import Profile from "./components/Profile";
 import ProfileUpdateForm from "./components/ProfileUpdateForm";
 import ClientDetails from "./components/ClientDetails";
 import ClientUpdateForm from "./components/ClientUpdateForm";
-import TreatmentPlanView from "./TreatmentPlanView";
+import TreatmentPlanView from "./components/TreatmentPlanView";
+import ProgressNoteView from "./components/ProgressNoteView";
 
 function App() {
   const history = useHistory()
@@ -53,7 +54,6 @@ function App() {
       })
   }, [])
 
-
   function handleUserUpdate (updatedInfo) {
     setCurrentUser(updatedInfo)
   }
@@ -71,7 +71,6 @@ function App() {
     <Login onLogin={setCurrentUser}/>
    </div>
   )
-
 
   return (
     <div >
@@ -110,6 +109,9 @@ function App() {
         </Route>
         <Route path="/progress-note/:id"> 
           <ProgressNotes />
+        </Route>
+        <Route path="/view-progress-note/:id">
+          <ProgressNoteView />
         </Route>
         <Route path="/assessment/:id"> 
           <Assessments />
