@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Button } from "../styled-components/Buttons";
 import Error from "../styled-components/Error";
-import { Input } from "../styled-components/input";
+import { Input, Select } from "../styled-components/input";
 import { FormField } from "../styled-components/FormField";
 import { Label } from "../styled-components/Label";
 import styled from "styled-components";
 
 function SignUpForm({ onLogin }) {
   const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("")
+  const [lastname, setLastname] = useState("");
+  const [title, setTitle] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [email, setEmail] = useState("")
@@ -27,6 +28,7 @@ function SignUpForm({ onLogin }) {
       body: JSON.stringify({
         firstname,
         lastname,
+        title,
         email,
         password,
         password_confirmation: passwordConfirmation,
@@ -72,6 +74,20 @@ function SignUpForm({ onLogin }) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+      </FormField>
+      <FormField>
+        <Label htmlFor="Title">Role</Label>
+        <Select
+          type="select"
+          id="Title"
+          autoComplete="off"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        >
+          <option value="Select">Select Role</option>
+          <option value="Manager">Manager</option>
+          <option value="Case Worker">Case Worker</option>
+        </Select>
       </FormField>
       <FormField>
         <Label htmlFor="password">Password</Label>
