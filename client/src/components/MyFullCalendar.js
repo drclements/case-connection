@@ -1,6 +1,5 @@
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import events from './events'
 import styled from 'styled-components'
 
 

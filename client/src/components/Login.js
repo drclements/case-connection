@@ -50,12 +50,12 @@ function Login({ onLogin }) {
     return (
     <PageContainer >
         <Wrapper>
-            <AppTitle className="font-playfair">Case <br/> Connect</AppTitle>
+            <AppTitle className="font-playfair">Case <br/> Connect (DEMO)</AppTitle>
             <p>Custom Case Management Solutions</p>
             <Divider/>
-            <LoginForm onLogin={onLogin} />
-                {/* <Divider /> */}
-            {/* {showLogin ? (
+            {/* <LoginForm onLogin={onLogin} />
+                <Divider /> */}
+            {showLogin ? (
             <>
                 <LoginForm onLogin={onLogin} />
                 <Divider />
@@ -77,10 +77,10 @@ function Login({ onLogin }) {
                 </Button>
                 </p>
             </>
-            )} */}
+            )}
         </Wrapper>
         <Image src={LoginPhoto}></Image>
-        <ProgramName>Better Together Mentoring</ProgramName>
+        <ProgramName>Program Name</ProgramName>
     </PageContainer>
     );
   }
